@@ -4,9 +4,8 @@ import requests
 from bs4 import BeautifulSoup
 
 
-TIME_RE = re.compile(r"\b\d{1,2}[.:]\d{2}\s*[–-]\s*\d{1,2}[.:]\d{2}\b")
-AGE_RE = re.compile(r"\b\d+\s*[-–]\s*\d+\s*Jahr", re.IGNORECASE)
-
+TIME_RANGE_RE = re.compile(r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})")
+AGE_RE = re.compile(r"(\d+\s*[-–]\s*\d+\s*Jahr(?:e)?)", re.IGNORECASE)
 
 BAD_TEXT_PARTS = [
     "Jugendwohnen im Kiez",
@@ -26,6 +25,16 @@ BAD_TEXT_PARTS = [
     "Therapeutische Hilfen",
 ]
 
+DAY_NAMES = [
+    "Montag",
+    "Dienstag",
+    "Mittwoch",
+    "Donnerstag",
+    "Freitag",
+    "Samstag",
+    "Sonntag",
+]
+
 
 def fetch_html(url):
     headers = {
@@ -38,6 +47,10 @@ def fetch_html(url):
 
 def clean_text(text):
     return " ".join(text.split()).strip()
+
+
+def normalize_time(value):
+    return value.replace(".", ":")
 
 
 def looks_like_noise(text):
@@ -53,9 +66,7 @@ def looks_like_noise(text):
 
 def extract_candidate_blocks(html, source):
     soup = BeautifulSoup(html, "html.parser")
-
     results = []
-
     elements = soup.find_all(["h1", "h2", "h3", "h4", "p", "li"])
 
     for el in elements:
@@ -64,7 +75,7 @@ def extract_candidate_blocks(html, source):
         if looks_like_noise(text):
             continue
 
-        has_time = bool(TIME_RE.search(text))
+        has_time = bool(TIME_RANGE_RE.search(text))
         has_age = bool(AGE_RE.search(text))
 
         if has_time or has_age or "anmeldung" in text.lower() or "baby" in text.lower() or "krabbel" in text.lower():
@@ -80,23 +91,82 @@ def extract_candidate_blocks(html, source):
     return results
 
 
-def extract_schedule_items(blocks):
-    items = []
+def split_block_into_events(text, source):
+    matches = list(TIME_RANGE_RE.finditer(text))
+    events = []
 
-    for block in blocks:
-        text = block["text"]
+    if not matches:
+        return events
 
-        if not TIME_RE.search(text):
+    for i, match in enumerate(matches):
+        start_index = match.start()
+        end_index = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+
+        chunk = text[start_index:end_index].strip(" •-–,;")
+        start_time = normalize_time(match.group(1))
+        end_time = normalize_time(match.group(2))
+
+        title = TIME_RANGE_RE.sub("", chunk, count=1).strip(" -–,:;")
+        age_match = AGE_RE.search(chunk)
+        age = age_match.group(1) if age_match else None
+
+        if len(title) < 3:
             continue
 
-        items.append({
-            "title_guess": text[:120],
-            "raw_text": text,
-            "source_name": block["source_name"],
-            "source_url": block["source_url"]
+        events.append({
+            "title": title,
+            "start_time": start_time,
+            "end_time": end_time,
+            "age": age,
+            "source_name": source["name"],
+            "source_url": source["url"],
+            "venue_name": source["name"]
         })
 
-    return items
+    return events
+
+
+def guess_day_from_text(text):
+    lower = text.lower()
+
+    if "donnerstag" in lower:
+        return "Donnerstag"
+    if "mittwoch" in lower:
+        return "Mittwoch"
+    if "dienstag" in lower:
+        return "Dienstag"
+    if "montag" in lower:
+        return "Montag"
+    if "freitag" in lower:
+        return "Freitag"
+    if "samstag" in lower:
+        return "Samstag"
+    if "sonntag" in lower:
+        return "Sonntag"
+
+    return None
+
+
+def dedupe_events(events):
+    seen = set()
+    unique = []
+
+    for event in events:
+        key = (
+            event["title"].lower().strip(),
+            event["start_time"],
+            event["end_time"],
+            event.get("age") or "",
+            event["source_url"]
+        )
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        unique.append(event)
+
+    return unique
 
 
 def main():
@@ -104,35 +174,36 @@ def main():
         sources = json.load(f)
 
     all_blocks = []
-    all_schedule_items = []
+    all_events = []
 
     for source in sources:
         print(f"Fetching: {source['url']}")
 
         try:
             html = fetch_html(source["url"])
-
             blocks = extract_candidate_blocks(html, source)
             print(f"Found {len(blocks)} candidate blocks")
 
-            schedule_items = extract_schedule_items(blocks)
-            print(f"Found {len(schedule_items)} schedule-like items")
-
             all_blocks.extend(blocks)
-            all_schedule_items.extend(schedule_items)
+
+            for block in blocks:
+                events = split_block_into_events(block["text"], source)
+                all_events.extend(events)
 
         except Exception as e:
             print(f"Error: {e}")
 
+    all_events = dedupe_events(all_events)
+
     output = {
         "candidate_blocks": all_blocks,
-        "schedule_items": all_schedule_items
+        "events": all_events
     }
 
     with open("output.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
-    print(f"Saved output.json with {len(all_blocks)} candidate blocks and {len(all_schedule_items)} schedule items")
+    print(f"Saved {len(all_events)} events to output.json")
 
 
 if __name__ == "__main__":
