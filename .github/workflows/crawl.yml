@@ -1,0 +1,29 @@
+name: Run crawler
+
+on:
+  workflow_dispatch:
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run crawler
+        run: python run.py
+
+      - name: Upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: crawler-output
+          path: output.json
