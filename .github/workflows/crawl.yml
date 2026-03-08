@@ -3,6 +3,9 @@ name: Run crawler
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   crawl:
     runs-on: ubuntu-latest
@@ -10,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -22,7 +27,21 @@ jobs:
       - name: Run crawler
         run: python run.py
 
-      - name: Upload output
+      - name: Show files
+        run: |
+          ls -la
+          echo "----- output preview -----"
+          head -50 output.json || true
+
+      - name: Commit and push output.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output.json
+          git commit -m "Update output.json" || echo "No changes to commit"
+          git push origin main
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: crawler-output
