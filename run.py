@@ -14,31 +14,14 @@ DAY_NAMES = [
     "Sonntag"
 ]
 
-TIME_RE = re.compile(
-    r"(?P<start>\d{1,2}[.:]\d{2})\s*[–-]\s*(?P<end>\d{1,2}[.:]\d{2})"
+TIME_EVENT_RE = re.compile(
+    r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})\s+(.+)"
 )
 
 AGE_RE = re.compile(
-    r"(?P<age>\d+\s*[-–]\s*\d+\s*(?:Jahr|Jahre|Monat|Monate))",
+    r"(\d+\s*[-–]\s*\d+\s*(?:Jahr|Jahre|Monat|Monate))",
     re.IGNORECASE
 )
-
-BAD_TITLE_STARTS = [
-    "uhr",
-    "und ",
-    ",",
-    ".",
-    "start am",
-    "erster termin",
-    "darüber hinaus",
-]
-
-BAD_TITLE_EXACT = {
-    "",
-    "uhr",
-    "uhr)",
-    "uhr:",
-}
 
 geocode_cache = {}
 
@@ -56,13 +39,6 @@ def clean_text(text):
 
 def normalize_time(value):
     return value.replace(".", ":")
-
-
-def extract_lines(html):
-    soup = BeautifulSoup(html, "html.parser")
-    text = soup.get_text("\n")
-    lines = [clean_text(line) for line in text.split("\n")]
-    return [line for line in lines if len(line) > 2]
 
 
 def geocode(address):
@@ -101,58 +77,6 @@ def geocode(address):
         return None, None
 
 
-def find_explicit_day_in_line(line):
-    stripped = line.strip()
-
-    for day in DAY_NAMES:
-        if stripped == day:
-            return day
-
-        if stripped.startswith(day + " "):
-            return day
-
-    return None
-
-
-def remove_day_prefix(line):
-    stripped = line.strip()
-
-    for day in DAY_NAMES:
-        if stripped == day:
-            return ""
-        if stripped.startswith(day + " "):
-            return stripped[len(day):].strip()
-
-    return stripped
-
-
-def cleanup_title(title):
-    title = title.strip(" ,:-–")
-    title = re.sub(r"^Uhr\b[: ]*", "", title, flags=re.IGNORECASE).strip()
-    title = re.sub(r"^\)+", "", title).strip()
-    title = re.sub(r"\s+", " ", title).strip()
-    return title
-
-
-def looks_like_bad_title(title):
-    if not title:
-        return True
-
-    lower = title.lower().strip()
-
-    if lower in BAD_TITLE_EXACT:
-        return True
-
-    if len(lower) < 4:
-        return True
-
-    for bad in BAD_TITLE_STARTS:
-        if lower.startswith(bad):
-            return True
-
-    return False
-
-
 def build_event(source, title, start_time, end_time, day_of_week=None, age=None):
     lat, lon = geocode(source["address"])
 
@@ -172,40 +96,66 @@ def build_event(source, title, start_time, end_time, day_of_week=None, age=None)
     }
 
 
-def parse_source(source):
+def parse_fann(source):
     html = fetch_html(source["url"])
-    lines = extract_lines(html)
+    soup = BeautifulSoup(html, "html.parser")
 
-    events = []
+    text = soup.get_text("\n")
+    lines = [clean_text(line) for line in text.split("\n")]
+    lines = [line for line in lines if line]
+
+    # localizar início da agenda
+    start_index = None
+    end_index = None
+
+    for i, line in enumerate(lines):
+        if "Angebote im FaNN" in line:
+            start_index = i
+            break
+
+    if start_index is None:
+        return [], []
+
+    # tenta parar antes da próxima seção grande
+    for i in range(start_index + 1, len(lines)):
+        if lines[i].startswith("Das FaNN ist ein Ort") or lines[i].startswith("Beratungsangebote"):
+            end_index = i
+            break
+
+    if end_index is None:
+        end_index = min(len(lines), start_index + 120)
+
+    agenda_lines = lines[start_index:end_index]
+
     candidate_blocks = []
-
+    events = []
     current_day = None
 
-    for line in lines:
-        explicit_day = find_explicit_day_in_line(line)
-        if explicit_day:
-            current_day = explicit_day
-            line = remove_day_prefix(line)
+    for line in agenda_lines:
+        line = line.strip()
 
-            # se a linha era só o dia, segue
-            if not line:
-                continue
+        # detectar dia
+        for day in DAY_NAMES:
+            if line == day or line.startswith(day + ":"):
+                current_day = day
+                line = line.replace(day, "").replace(":", "").strip()
+                break
 
-        time_match = TIME_RE.search(line)
-        if not time_match:
+        if not line:
             continue
 
-        start_time = time_match.group("start")
-        end_time = time_match.group("end")
+        match = TIME_EVENT_RE.match(line)
+        if not match:
+            continue
 
-        title = line[time_match.end():].strip()
-        title = cleanup_title(title)
+        start_time, end_time, title = match.groups()
+        title = title.strip(" ,:-")
 
-        if looks_like_bad_title(title):
+        if len(title) < 4:
             continue
 
         age_match = AGE_RE.search(title)
-        age = age_match.group("age") if age_match else None
+        age = age_match.group(1) if age_match else None
 
         candidate_blocks.append({
             "source_name": source["name"],
@@ -223,6 +173,54 @@ def parse_source(source):
                 start_time=start_time,
                 end_time=end_time,
                 day_of_week=current_day,
+                age=age
+            )
+        )
+
+    return candidate_blocks, events
+
+
+def parse_generic(source):
+    html = fetch_html(source["url"])
+    soup = BeautifulSoup(html, "html.parser")
+
+    text = soup.get_text("\n")
+    lines = [clean_text(line) for line in text.split("\n")]
+    lines = [line for line in lines if line]
+
+    candidate_blocks = []
+    events = []
+
+    for line in lines:
+        match = TIME_EVENT_RE.match(line)
+        if not match:
+            continue
+
+        start_time, end_time, title = match.groups()
+        title = title.strip(" ,:-")
+
+        if len(title) < 4:
+            continue
+
+        age_match = AGE_RE.search(title)
+        age = age_match.group(1) if age_match else None
+
+        candidate_blocks.append({
+            "source_name": source["name"],
+            "source_url": source["url"],
+            "text": line,
+            "day_of_week": None,
+            "district": source["district"],
+            "address": source["address"]
+        })
+
+        events.append(
+            build_event(
+                source=source,
+                title=title,
+                start_time=start_time,
+                end_time=end_time,
+                day_of_week=None,
                 age=age
             )
         )
@@ -263,10 +261,15 @@ def main():
         print("Crawling:", source["name"])
 
         try:
-            candidate_blocks, events = parse_source(source)
+            if "fann" in source["name"].lower():
+                candidate_blocks, events = parse_fann(source)
+            else:
+                candidate_blocks, events = parse_generic(source)
+
             print("found", len(events), "events")
             all_candidate_blocks.extend(candidate_blocks)
             all_events.extend(events)
+
         except Exception as e:
             print("error:", e)
 
