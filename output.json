@@ -4,25 +4,7 @@
       "title": "Baby- und Krabbelzeit (0-1 Jahr)",
       "start_time": "09:30",
       "end_time": "11:00",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920373,
-      "longitude": 13.4268288,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord"
-    },
-    {
-      "title": "Bewegung und Spiel (1-2 Jahre)",
-      "start_time": "11:30",
-      "end_time": "13:00",
-      "age": "1-2 Jahre",
-      "age_min": 1,
-      "age_max": 2,
+      "age": "0-1 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -36,9 +18,7 @@
       "title": "Beratungsangebot der Stadtteilmütter für mehrsprachige Familien (0-5 Jahre), gefördert vom: Diakoniewerk Simeon",
       "start_time": "14:00",
       "end_time": "15:00",
-      "age": "0-5 Jahre",
-      "age_min": 0,
-      "age_max": 5,
+      "age": "0-5 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -53,8 +33,6 @@
       "start_time": "15:00",
       "end_time": "17:00",
       "age": null,
-      "age_min": 0,
-      "age_max": 6,
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -68,9 +46,7 @@
       "title": "Familientreff 0-3 Jahre",
       "start_time": "09:30",
       "end_time": "11:00",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
+      "age": "0-3 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -84,9 +60,7 @@
       "title": "Spanische Krabbelgruppe (0-3 Jahre)",
       "start_time": "11:30",
       "end_time": "13:00",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
+      "age": "0-3 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -100,9 +74,7 @@
       "title": "„Übergang in Abend“, Bewegter Familientreff – Aktivität & Entspannung (0-3 Jahre)",
       "start_time": "16:30",
       "end_time": "18:00",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
+      "age": "0-3 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -116,9 +88,7 @@
       "title": "Queere Eltern-Kind-Gruppe (0-3 Jahre)",
       "start_time": "14:00",
       "end_time": "15:30",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
+      "age": "0-3 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -132,9 +102,7 @@
       "title": "Familientreff (mit Kindern 0-3 Jahre)",
       "start_time": "09:30",
       "end_time": "11:00",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
+      "age": "0-3 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -148,9 +116,21 @@
       "title": "Baby- und Krabbelzeit (0-1 Jahr)",
       "start_time": "11:30",
       "end_time": "13:00",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "age": "0-1 Jahr",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin",
+      "latitude": 52.4920373,
+      "longitude": 13.4268288,
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "venue_name": "FaNN – Familienhaus Neukölln Nord"
+    },
+    {
+      "title": "Mama-Baby-Yoga (0-1 Jahr, 8-10 Termine, Anmeldung",
+      "start_time": "13:30",
+      "end_time": "14:30",
+      "age": "0-1 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -164,25 +144,7 @@
       "title": "Musikkurs (5 Termine für Kinder ab 2 Jahre)",
       "start_time": "16:15",
       "end_time": "17:15",
-      "age": "ab 2 Jahre",
-      "age_min": 2,
-      "age_max": 6,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920373,
-      "longitude": 13.4268288,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord"
-    },
-    {
-      "title": "Vätertreff für Väter mit Kindern von 0-3 Jahren",
-      "start_time": "10:00",
-      "end_time": "12:30",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
+      "age": null,
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -197,8 +159,6 @@
       "start_time": "14:00",
       "end_time": "16:00",
       "age": null,
-      "age_min": null,
-      "age_max": null,
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -212,9 +172,7 @@
       "title": "französische Spielgruppe für Kinder 0-4 Jahre",
       "start_time": "16:30",
       "end_time": "18:00",
-      "age": "0-4 Jahre",
-      "age_min": 0,
-      "age_max": 4,
+      "age": "0-4 Jahr",
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -228,9 +186,21 @@
       "title": "Vater-Kind-Turnen (0-3 Jahre)",
       "start_time": "10:00",
       "end_time": "12:00",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
+      "age": "0-3 Jahr",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin",
+      "latitude": 52.4920373,
+      "longitude": 13.4268288,
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "venue_name": "FaNN – Familienhaus Neukölln Nord"
+    },
+    {
+      "title": "Griechische Eltern-Kind-Gruppe (am vierten Samstag des Monats), Start am 31.1.2026",
+      "start_time": "13:30",
+      "end_time": "15:30",
+      "age": null,
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -245,8 +215,6 @@
       "start_time": "16:00",
       "end_time": "18:00",
       "age": null,
-      "age_min": null,
-      "age_max": null,
       "day_of_week": null,
       "district": "Neukölln",
       "address": "Hobrechtstraße 32, 12047 Berlin",
@@ -257,44 +225,24 @@
       "venue_name": "FaNN – Familienhaus Neukölln Nord"
     },
     {
-      "title": "Klang und Bewegung",
-      "start_time": "01:00",
-      "end_time": "03:00",
-      "age": null,
-      "age_min": null,
-      "age_max": null,
-      "day_of_week": "Mittwoch",
-      "district": "Kreuzberg",
-      "address": "Adalbertstraße 23 b, 10997 Berlin",
-      "latitude": 52.5044229,
-      "longitude": 13.4221386,
-      "source_name": "Familienzentrum Adalbertstraße",
-      "source_url": "https://www.familienzentrum-adalbertstrasse.de/angebote-barrierefei/",
-      "venue_name": "Familienzentrum Adalbertstraße"
-    },
-    {
-      "title": "Papa-Kind- Turnen",
-      "start_time": "04:00",
-      "end_time": "06:00",
-      "age": null,
-      "age_min": null,
-      "age_max": null,
-      "day_of_week": "Freitag",
-      "district": "Kreuzberg",
-      "address": "Adalbertstraße 23 b, 10997 Berlin",
-      "latitude": 52.5044229,
-      "longitude": 13.4221386,
-      "source_name": "Familienzentrum Adalbertstraße",
-      "source_url": "https://www.familienzentrum-adalbertstrasse.de/angebote-barrierefei/",
-      "venue_name": "Familienzentrum Adalbertstraße"
-    },
-    {
-      "title": "Tobe- und Bewegungszeit ab 2 Jahren",
-      "start_time": "16:00",
+      "title": "Angebote Barrierefei – Familienzentrum Adalbertstraße – Jugendwohnen im Kiez",
+      "start_time": "10:00",
       "end_time": "18:00",
-      "age": "ab 2 Jahre",
-      "age_min": 2,
-      "age_max": 6,
+      "age": null,
+      "day_of_week": null,
+      "district": "Kreuzberg",
+      "address": "Adalbertstraße 23 b, 10997 Berlin",
+      "latitude": 52.5044229,
+      "longitude": 13.4221386,
+      "source_name": "Familienzentrum Adalbertstraße",
+      "source_url": "https://www.familienzentrum-adalbertstrasse.de/angebote-barrierefei/",
+      "venue_name": "Familienzentrum Adalbertstraße"
+    },
+    {
+      "title": "Krabbelgruppe",
+      "start_time": "10:00",
+      "end_time": "11:30",
+      "age": null,
       "day_of_week": null,
       "district": "Tempelhof-Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin",
@@ -305,12 +253,10 @@
       "venue_name": "Familienzentrum Alve"
     },
     {
-      "title": "Krabbelgruppe",
-      "start_time": "10:00",
-      "end_time": "11:30",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "title": "Ukrainisches Eltern- und Familienfrühstück",
+      "start_time": "11:30",
+      "end_time": "13:30",
+      "age": null,
       "day_of_week": null,
       "district": "Tempelhof-Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin",
@@ -325,8 +271,6 @@
       "start_time": "15:00",
       "end_time": "16:30",
       "age": null,
-      "age_min": null,
-      "age_max": null,
       "day_of_week": null,
       "district": "Tempelhof-Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin",
@@ -337,12 +281,10 @@
       "venue_name": "Familienzentrum Alve"
     },
     {
-      "title": "Mini-Rambazamba von Mama für Eltern und Babys",
+      "title": "Uhr Mini-Rambazamba von Mama für Eltern und Babys",
       "start_time": "10:00",
       "end_time": "12:00",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "age": null,
       "day_of_week": null,
       "district": "Tempelhof-Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin",
@@ -356,9 +298,7 @@
       "title": "Krabbelgruppe",
       "start_time": "09:30",
       "end_time": "10:30",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -372,9 +312,7 @@
       "title": "Krabbelgruppe",
       "start_time": "11:00",
       "end_time": "12:00",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -385,12 +323,10 @@
       "venue_name": "Familienzentrum Kita Lasiuszeile"
     },
     {
-      "title": "Bastelwerkstatt (ab 2 Jahre)",
-      "start_time": "15:30",
-      "end_time": "17:00",
-      "age": "ab 2 Jahre",
-      "age_min": 2,
-      "age_max": 6,
+      "title": "Familienfrühstück",
+      "start_time": "09:30",
+      "end_time": "12:00",
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -404,9 +340,7 @@
       "title": "babySignal-Kurs (Termin siehe Aushang/Webseite)",
       "start_time": "12:30",
       "end_time": "13:00",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -420,9 +354,7 @@
       "title": "Familienberatung, und nach Vereinbarung: Eltern-Baby-Beratung „Emotionelle-Erste-Hilfe“",
       "start_time": "13:00",
       "end_time": "14:00",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -436,9 +368,21 @@
       "title": "Tanzen mit Baby in der Trage",
       "start_time": "14:00",
       "end_time": "15:00",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "age": null,
+      "day_of_week": null,
+      "district": "Spandau",
+      "address": "Lasiuszeile 6, 13585 Berlin",
+      "latitude": 52.5472451,
+      "longitude": 13.2033217,
+      "source_name": "Familienzentrum Kita Lasiuszeile",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
+      "venue_name": "Familienzentrum Kita Lasiuszeile"
+    },
+    {
+      "title": "Familienberatung, nach Vereinbarung",
+      "start_time": "13:00",
+      "end_time": "14:00",
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -452,9 +396,7 @@
       "title": "Musikwerkstatt für Kinder von 2-3 Jahren",
       "start_time": "15:30",
       "end_time": "16:15",
-      "age": "2-3 Jahre",
-      "age_min": 2,
-      "age_max": 3,
+      "age": "2-3 Jahr",
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -468,25 +410,7 @@
       "title": "Musikwerkstatt für Kinder von 4-6 Jahren",
       "start_time": "16:30",
       "end_time": "17:15",
-      "age": "4-6 Jahre",
-      "age_min": 4,
-      "age_max": 6,
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin",
-      "latitude": 52.5472451,
-      "longitude": 13.2033217,
-      "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
-      "venue_name": "Familienzentrum Kita Lasiuszeile"
-    },
-    {
-      "title": "Kurs „Kinder stärken“ (5-7 Jahre)",
-      "start_time": "16:00",
-      "end_time": "17:00",
-      "age": "5-7 Jahre",
-      "age_min": 5,
-      "age_max": 7,
+      "age": "4-6 Jahr",
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -500,9 +424,7 @@
       "title": "Babymassage (2 Monate bis Krabbelalter) Termine siehe Aushang/Webseite",
       "start_time": "11:00",
       "end_time": "12:30",
-      "age": "0-1 Jahre",
-      "age_min": 0,
-      "age_max": 1,
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -513,12 +435,10 @@
       "venue_name": "Familienzentrum Kita Lasiuszeile"
     },
     {
-      "title": "Kreativwerkstatt (ab 2 Jahre)",
-      "start_time": "15:30",
-      "end_time": "17:00",
-      "age": "ab 2 Jahre",
-      "age_min": 2,
-      "age_max": 6,
+      "title": "Kochen mit Familien",
+      "start_time": "16:00",
+      "end_time": "18:00",
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -533,8 +453,6 @@
       "start_time": "09:30",
       "end_time": "10:30",
       "age": null,
-      "age_min": null,
-      "age_max": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -549,8 +467,34 @@
       "start_time": "10:45",
       "end_time": "11:45",
       "age": null,
-      "age_min": null,
-      "age_max": null,
+      "day_of_week": null,
+      "district": "Spandau",
+      "address": "Lasiuszeile 6, 13585 Berlin",
+      "latitude": 52.5472451,
+      "longitude": 13.2033217,
+      "source_name": "Familienzentrum Kita Lasiuszeile",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
+      "venue_name": "Familienzentrum Kita Lasiuszeile"
+    },
+    {
+      "title": "Familiendisko im Paul-Schneider-Haus (1x im Monat von Okt. bis März)",
+      "start_time": "15:30",
+      "end_time": "17:00",
+      "age": null,
+      "day_of_week": null,
+      "district": "Spandau",
+      "address": "Lasiuszeile 6, 13585 Berlin",
+      "latitude": 52.5472451,
+      "longitude": 13.2033217,
+      "source_name": "Familienzentrum Kita Lasiuszeile",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
+      "venue_name": "Familienzentrum Kita Lasiuszeile"
+    },
+    {
+      "title": "Familiensamstag (Termine s. Aushänge/Webseite)",
+      "start_time": "14:30",
+      "end_time": "17:30",
+      "age": null,
       "day_of_week": null,
       "district": "Spandau",
       "address": "Lasiuszeile 6, 13585 Berlin",
@@ -564,299 +508,193 @@
   "candidate_blocks": [
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "09.30–11.00 Baby- und Krabbelzeit (0-1 Jahr)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "text": "11.30–13.00 Bewegung und Spiel (1-2 Jahre)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
-    },
-    {
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "14.00-15.00 Beratungsangebot der Stadtteilmütter für mehrsprachige Familien (0-5 Jahre), gefördert vom: Diakoniewerk Simeon",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "15.00-17.00 Offener Familientreff mit Elke und den Stadtteilmüttern",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "09.30-11.00 Familientreff 0-3 Jahre",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "11.30-13.00 Spanische Krabbelgruppe (0-3 Jahre)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "16.30-18.00 „Übergang in Abend“, Bewegter Familientreff – Aktivität & Entspannung (0-3 Jahre)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "14.00-15.30 Queere Eltern-Kind-Gruppe (0-3 Jahre)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "09.30–11.00 Familientreff (mit Kindern 0-3 Jahre)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "11.30–13.00 Baby- und Krabbelzeit (0-1 Jahr)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "13.30-14.30 Mama-Baby-Yoga (0-1 Jahr, 8-10 Termine, Anmeldung:",
+      "day_of_week": null
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
       "text": "16.15-17.15 Musikkurs (5 Termine für Kinder ab 2 Jahre)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "text": "10.00-12.30 Vätertreff für Väter mit Kindern von 0-3 Jahren",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
-    },
-    {
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "14.00-16:00 portugiesische Spielgruppe",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "16.30-18.00 französische Spielgruppe für Kinder 0-4 Jahre",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "text": "10.00-12.00 Vater-Kind-Turnen (0-3 Jahre)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "13.30-15.30 Griechische Eltern-Kind-Gruppe (am vierten Samstag des Monats), Start am 31.1.2026",
+      "day_of_week": null
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
       "text": "16.00-18.00 Italienische Spielgruppe (am ersten Samstag des Monats)",
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin"
-    },
-    {
-      "source_name": "Familienzentrum Adalbertstraße",
-      "source_url": "https://www.familienzentrum-adalbertstrasse.de/angebote-barrierefei/",
-      "text": "Klang und Bewegung |  | für 1 bis 3 jährige Kinder",
-      "day_of_week": "Mittwoch",
-      "district": "Kreuzberg",
-      "address": "Adalbertstraße 23 b, 10997 Berlin"
-    },
-    {
-      "source_name": "Familienzentrum Adalbertstraße",
-      "source_url": "https://www.familienzentrum-adalbertstrasse.de/angebote-barrierefei/",
-      "text": "Papa-Kind- Turnen |  | für 4 bis 6 jährige",
-      "day_of_week": "Freitag",
-      "district": "Kreuzberg",
-      "address": "Adalbertstraße 23 b, 10997 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Alve",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
-      "text": "16:00-18:00 Uhr Tobe- und Bewegungszeit ab 2 Jahren",
-      "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
-      "address": "Alvenslebenstraße 17, 10783 Berlin"
-    },
-    {
-      "source_name": "Familienzentrum Alve",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
       "text": "10:00-11:30 Krabbelgruppe",
-      "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
-      "address": "Alvenslebenstraße 17, 10783 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Alve",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
+      "text": "11:30-13:30 Ukrainisches Eltern- und Familienfrühstück",
+      "day_of_week": null
+    },
+    {
+      "source_name": "Familienzentrum Alve",
       "text": "15:00-16:30 Musik und Klang für 3-6 Jährige",
-      "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
-      "address": "Alvenslebenstraße 17, 10783 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Alve",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
       "text": "10:00-12:00 Uhr Mini-Rambazamba von Mama für Eltern und Babys",
-      "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
-      "address": "Alvenslebenstraße 17, 10783 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "09:30-10:30 Krabbelgruppe",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "11:00-12:00 Krabbelgruppe",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
-      "text": "15:30-17:00 Bastelwerkstatt (ab 2 Jahre)",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "text": "09:30-12:00 Familienfrühstück",
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "12:30-13:00 babySignal-Kurs (Termin siehe Aushang/Webseite)",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "13:00-14:00 Familienberatung, und nach Vereinbarung: Eltern-Baby-Beratung „Emotionelle-Erste-Hilfe“",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "14:00-15:00 Tanzen mit Baby in der Trage",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "09:30-10:30 Krabbelgruppe",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "11:00-12:00 Krabbelgruppe",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
+      "text": "13:00-14:00 Familienberatung, nach Vereinbarung",
+      "day_of_week": null
+    },
+    {
+      "source_name": "Familienzentrum Kita Lasiuszeile",
       "text": "15:30-16:15 Musikwerkstatt für Kinder von 2-3 Jahren",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "16:30-17:15 Musikwerkstatt für Kinder von 4-6 Jahren",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
-      "text": "16:00-17:00 Uhr Kurs „Kinder stärken“ (5-7 Jahre)",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "text": "09:30-12:00 Familienfrühstück",
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "11:00-12:30 Babymassage (2 Monate bis Krabbelalter) Termine siehe Aushang/Webseite",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
-      "text": "15:30-17:00 Kreativwerkstatt (ab 2 Jahre)",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "text": "16:00-18:00 Kochen mit Familien",
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "09:30-10:30 Musikwerkstatt I (9 Monate-2 Jahre)",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
     },
     {
       "source_name": "Familienzentrum Kita Lasiuszeile",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
       "text": "10:45-11:45 Musikwerkstatt II (9 Monate-2 Jahre)",
-      "day_of_week": null,
-      "district": "Spandau",
-      "address": "Lasiuszeile 6, 13585 Berlin"
+      "day_of_week": null
+    },
+    {
+      "source_name": "Familienzentrum Kita Lasiuszeile",
+      "text": "15:30-17:00 Familiendisko im Paul-Schneider-Haus (1x im Monat von Okt. bis März)",
+      "day_of_week": null
+    },
+    {
+      "source_name": "Familienzentrum Kita Lasiuszeile",
+      "text": "14:30-17:30 Familiensamstag (Termine s. Aushänge/Webseite)",
+      "day_of_week": null
     }
   ]
 }
