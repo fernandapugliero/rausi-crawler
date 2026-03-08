@@ -12,16 +12,10 @@
     "address": "Adalbertstraße 23 b, 10997 Berlin"
   },
   {
-    "name": "Familienzentrum Alve",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
-    "district": "Tempelhof-Schöneberg",
-    "address": "Alvenslebenstraße 17, 10783 Berlin"
-  },
-  {
-    "name": "Familienzentrum Kita Lasiuszeile",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
-    "district": "Spandau",
-    "address": "Lasiuszeile 6, 13585 Berlin"
+    "name": "Familienzentrum Wassertor",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-wassertor/",
+    "district": "Kreuzberg",
+    "address": "Wassertorstraße 48, 10969 Berlin"
   },
   {
     "name": "Familienzentrum Jungfernheide",
@@ -30,118 +24,15 @@
     "address": "Heckerdamm 242, 13627 Berlin"
   },
   {
-    "name": "Familienzentrum Wassertor",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-wassertor/",
-    "district": "Kreuzberg",
-    "address": "Wassertorstraße 48, 10969 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Mehringdamm",
-    "url": "https://www.familienzentrum-mehringdamm.de/angebote/",
-    "district": "Kreuzberg",
-    "address": "Mehringdamm 114, 10965 Berlin"
-  },
-  {
-    "name": "Familienzentrum Menschenskinder",
-    "url": "https://www.menschenskinder-berlin.de/angebote/",
-    "district": "Prenzlauer Berg",
-    "address": "Fehrbelliner Straße 92, 10119 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Upsala",
-    "url": "https://www.upsala-berlin.de/familienzentrum/",
-    "district": "Wedding",
-    "address": "Upsalaer Straße 6, 13353 Berlin"
-  },
-  {
-    "name": "Familienzentrum Fabrik Osloer Straße",
-    "url": "https://www.fabrik-osloer-strasse.de/familienzentrum/",
-    "district": "Wedding",
-    "address": "Osloer Straße 12, 13359 Berlin"
-  },
-  {
-    "name": "Familienzentrum Kastanienallee",
-    "url": "https://www.familienzentrum-kastanienallee.de/angebote/",
-    "district": "Prenzlauer Berg",
-    "address": "Kastanienallee 55, 10119 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum am Nauener Platz",
-    "url": "https://www.familienzentrum-nauener-platz.de/angebote/",
-    "district": "Wedding",
-    "address": "Schulstraße 101, 13347 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Schivelbeiner Straße",
-    "url": "https://www.familienzentrum-schivelbeiner.de/angebote/",
-    "district": "Prenzlauer Berg",
-    "address": "Schivelbeiner Straße 12, 10439 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Kreuzberg",
-    "url": "https://www.familienzentrum-kreuzberg.de/angebote/",
-    "district": "Kreuzberg",
-    "address": "Mehringdamm 114, 10965 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Pankow",
-    "url": "https://www.familienzentrum-pankow.de/angebote/",
-    "district": "Pankow",
-    "address": "Görschstraße 16, 13187 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Friedrichshain",
-    "url": "https://www.familienzentrum-friedrichshain.de/angebote/",
-    "district": "Friedrichshain",
-    "address": "Karl-Marx-Allee 93, 10243 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Marzahn",
-    "url": "https://www.familienzentrum-marzahn.de/angebote/",
-    "district": "Marzahn",
-    "address": "Marzahner Promenade 38, 12679 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Lichtenberg",
-    "url": "https://www.familienzentrum-lichtenberg.de/angebote/",
-    "district": "Lichtenberg",
-    "address": "Gotlindestraße 38, 10365 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Spandau",
-    "url": "https://www.familienzentrum-spandau.de/angebote/",
-    "district": "Spandau",
-    "address": "Neuendorfer Straße 89, 13585 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Neukölln Süd",
-    "url": "https://www.familienzentrum-neukoelln.de/angebote/",
-    "district": "Neukölln",
-    "address": "Karl-Marx-Straße 131, 12043 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Tempelhof",
-    "url": "https://www.familienzentrum-tempelhof.de/angebote/",
-    "district": "Tempelhof",
-    "address": "Manteuffelstraße 11, 12103 Berlin"
-  },
-
-  {
-    "name": "Familienzentrum Schöneberg",
-    "url": "https://www.familienzentrum-schoeneberg.de/angebote/",
+    "name": "Familienzentrum Alve",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
     "district": "Schöneberg",
-    "address": "Hauptstraße 117, 10827 Berlin"
+    "address": "Alvenslebenstraße 17, 10783 Berlin"
+  },
+  {
+    "name": "Familienzentrum Kita Lasiuszeile",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
+    "district": "Spandau",
+    "address": "Lasiuszeile 6, 13585 Berlin"
   }
 ]
