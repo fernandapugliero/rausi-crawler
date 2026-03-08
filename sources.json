@@ -22,5 +22,29 @@
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
     "district": "Spandau",
     "address": "Lasiuszeile 6, 13585 Berlin"
+  },
+  {
+    "name": "Familienzentrum Jungfernheide",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-jungfernheide/",
+    "district": "Charlottenburg",
+    "address": "Heckerdamm 242, 13627 Berlin"
+  },
+  {
+    "name": "Familienzentrum Wassertor",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-wassertor/",
+    "district": "Kreuzberg",
+    "address": "Wassertorstraße 48, 10969 Berlin"
+  },
+  {
+    "name": "Familienzentrum Mehringdamm",
+    "url": "https://www.familienzentrum-mehringdamm.de/angebote/",
+    "district": "Kreuzberg",
+    "address": "Mehringdamm 114, 10965 Berlin"
+  },
+  {
+    "name": "Familienzentrum Menschenskinder",
+    "url": "https://www.menschenskinder-berlin.de/angebote/",
+    "district": "Prenzlauer Berg",
+    "address": "Fehrbelliner Straße 92, 10119 Berlin"
   }
 ]
