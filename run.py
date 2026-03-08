@@ -18,10 +18,63 @@ TIME_EVENT_RE = re.compile(
     r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})\s+(.+)"
 )
 
-AGE_RE = re.compile(
-    r"(\d+\s*[-–]\s*\d+\s*(?:Jahr|Jahre|Monat|Monate))",
+AGE_RANGE_RE = re.compile(
+    r"(\d+)\s*[-–]\s*(\d+)\s*(Jahr|Jahre|Monat|Monate)",
     re.IGNORECASE
 )
+
+AGE_AB_RE = re.compile(
+    r"ab\s+(\d+)\s*(Jahr|Jahre|Monat|Monate)",
+    re.IGNORECASE
+)
+
+KEEP_KEYWORDS = [
+    "baby",
+    "krabbel",
+    "kleinkind",
+    "eltern-kind",
+    "familientreff",
+    "babymassage",
+    "pekip",
+    "spielgruppe",
+    "vater-kind",
+    "mama-baby",
+    "musik",
+    "turnen",
+]
+
+EXCLUDE_KEYWORDS = [
+    "grundschule",
+    "schulkind",
+    "jugendliche",
+    "teen",
+    "teens",
+    "ab 7 jahr",
+    "ab 7 jahren",
+    "ab 8 jahr",
+    "ab 8 jahren",
+    "ab 9 jahr",
+    "ab 9 jahren",
+    "ab 10 jahr",
+    "ab 10 jahren",
+]
+
+BAD_TITLE_STARTS = [
+    "uhr",
+    "und ",
+    ",",
+    ".",
+    "start am",
+    "erster termin",
+    "darüber hinaus",
+]
+
+BAD_TITLE_EXACT = {
+    "",
+    "uhr",
+    "uhr)",
+    "uhr:",
+}
 
 geocode_cache = {}
 
@@ -39,6 +92,13 @@ def clean_text(text):
 
 def normalize_time(value):
     return value.replace(".", ":")
+
+
+def extract_lines(html):
+    soup = BeautifulSoup(html, "html.parser")
+    text = soup.get_text("\n")
+    lines = [clean_text(line) for line in text.split("\n")]
+    return [line for line in lines if len(line) > 2]
 
 
 def geocode(address):
@@ -77,14 +137,155 @@ def geocode(address):
         return None, None
 
 
-def build_event(source, title, start_time, end_time, day_of_week=None, age=None):
+def find_explicit_day_in_line(line):
+    stripped = line.strip()
+
+    for day in DAY_NAMES:
+        if stripped == day:
+            return day
+
+        if stripped.startswith(day + " "):
+            return day
+
+        if stripped.startswith(day + ":"):
+            return day
+
+    return None
+
+
+def remove_day_prefix(line):
+    stripped = line.strip()
+
+    for day in DAY_NAMES:
+        if stripped == day:
+            return ""
+        if stripped.startswith(day + " "):
+            return stripped[len(day):].strip()
+        if stripped.startswith(day + ":"):
+            return stripped[len(day) + 1:].strip()
+
+    return stripped
+
+
+def cleanup_title(title):
+    title = title.strip(" ,:-–")
+    title = re.sub(r"^Uhr\b[: ]*", "", title, flags=re.IGNORECASE).strip()
+    title = re.sub(r"^\)+", "", title).strip()
+    title = re.sub(r"\s+", " ", title).strip()
+    return title
+
+
+def looks_like_bad_title(title):
+    if not title:
+        return True
+
+    lower = title.lower().strip()
+
+    if lower in BAD_TITLE_EXACT:
+        return True
+
+    if len(lower) < 4:
+        return True
+
+    for bad in BAD_TITLE_STARTS:
+        if lower.startswith(bad):
+            return True
+
+    if "start am" in title:
+        return True
+
+    return False
+
+
+def extract_age_structured(title):
+    """
+    Returns:
+    age_label, age_min, age_max
+    Units are normalized to years.
+    Months are converted to fractions of years.
+    """
+    title_lower = title.lower()
+
+    match = AGE_RANGE_RE.search(title)
+    if match:
+        min_raw = int(match.group(1))
+        max_raw = int(match.group(2))
+        unit = match.group(3).lower()
+
+        if "monat" in unit:
+            age_min = round(min_raw / 12, 2)
+            age_max = round(max_raw / 12, 2)
+            age_label = f"{min_raw}-{max_raw} Monate"
+        else:
+            age_min = min_raw
+            age_max = max_raw
+            age_label = f"{min_raw}-{max_raw} Jahre"
+
+        return age_label, age_min, age_max
+
+    match = AGE_AB_RE.search(title)
+    if match:
+        min_raw = int(match.group(1))
+        unit = match.group(2).lower()
+
+        if "monat" in unit:
+            age_min = round(min_raw / 12, 2)
+            age_max = 6
+            age_label = f"ab {min_raw} Monate"
+        else:
+            age_min = min_raw
+            age_max = 6
+            age_label = f"ab {min_raw} Jahre"
+
+        return age_label, age_min, age_max
+
+    if "baby" in title_lower or "krabbel" in title_lower or "pekip" in title_lower or "babymassage" in title_lower:
+        return "0-1 Jahr", 0, 1
+
+    if "kleinkind" in title_lower:
+        return "1-3 Jahre", 1, 3
+
+    if "eltern-kind" in title_lower or "familientreff" in title_lower or "vater-kind" in title_lower or "mama-baby" in title_lower:
+        return None, 0, 6
+
+    return None, None, None
+
+
+def is_in_scope_0_6(title, age_min, age_max):
+    lower = title.lower()
+
+    for keyword in EXCLUDE_KEYWORDS:
+        if keyword in lower:
+            return False
+
+    if age_min is not None:
+        if age_min > 6:
+            return False
+
+    if age_max is not None:
+        if age_min is not None and age_min <= 6:
+            return True
+        if age_max <= 6:
+            return True
+        return False
+
+    for keyword in KEEP_KEYWORDS:
+        if keyword in lower:
+            return True
+
+    return False
+
+
+def build_event(source, title, start_time, end_time, day_of_week=None, age_label=None, age_min=None, age_max=None):
     lat, lon = geocode(source["address"])
 
     return {
         "title": title,
         "start_time": normalize_time(start_time),
         "end_time": normalize_time(end_time),
-        "age": age,
+        "age": age_label,
+        "age_min": age_min,
+        "age_max": age_max,
         "day_of_week": day_of_week,
         "district": source["district"],
         "address": source["address"],
@@ -96,7 +297,7 @@ def build_event(source, title, start_time, end_time, day_of_week=None, age=None)
     }
 
 
-def parse_fann(source):
+def parse_source(source):
     html = fetch_html(source["url"])
     soup = BeautifulSoup(html, "html.parser")
 
@@ -104,58 +305,62 @@ def parse_fann(source):
     lines = [clean_text(line) for line in text.split("\n")]
     lines = [line for line in lines if line]
 
-    # localizar início da agenda
+    # tenta focar na seção principal da agenda para as páginas da Jugendwohnen
     start_index = None
     end_index = None
 
     for i, line in enumerate(lines):
-        if "Angebote im FaNN" in line:
+        if "Angebote im" in line or "Angebote im FaNN" in line:
             start_index = i
             break
 
     if start_index is None:
-        return [], []
+        agenda_lines = lines
+    else:
+        for i in range(start_index + 1, len(lines)):
+            if (
+                lines[i].startswith("Das FaNN ist ein Ort")
+                or lines[i].startswith("Beratungsangebote")
+                or lines[i].startswith("Kontakt")
+            ):
+                end_index = i
+                break
 
-    # tenta parar antes da próxima seção grande
-    for i in range(start_index + 1, len(lines)):
-        if lines[i].startswith("Das FaNN ist ein Ort") or lines[i].startswith("Beratungsangebote"):
-            end_index = i
-            break
+        if end_index is None:
+            end_index = min(len(lines), start_index + 150)
 
-    if end_index is None:
-        end_index = min(len(lines), start_index + 120)
-
-    agenda_lines = lines[start_index:end_index]
+        agenda_lines = lines[start_index:end_index]
 
     candidate_blocks = []
     events = []
     current_day = None
 
     for line in agenda_lines:
-        line = line.strip()
+        explicit_day = find_explicit_day_in_line(line)
+        if explicit_day:
+            current_day = explicit_day
+            line = remove_day_prefix(line)
 
-        # detectar dia
-        for day in DAY_NAMES:
-            if line == day or line.startswith(day + ":"):
-                current_day = day
-                line = line.replace(day, "").replace(":", "").strip()
-                break
-
-        if not line:
-            continue
+            if not line:
+                continue
 
         match = TIME_EVENT_RE.match(line)
         if not match:
             continue
 
         start_time, end_time, title = match.groups()
-        title = title.strip(" ,:-")
+        title = cleanup_title(title)
 
-        if len(title) < 4:
+        if looks_like_bad_title(title):
             continue
 
-        age_match = AGE_RE.search(title)
-        age = age_match.group(1) if age_match else None
+        if "start am" in title.lower():
+            continue
+
+        age_label, age_min, age_max = extract_age_structured(title)
+
+        if not is_in_scope_0_6(title, age_min, age_max):
+            continue
 
         candidate_blocks.append({
             "source_name": source["name"],
@@ -173,55 +378,9 @@ def parse_fann(source):
                 start_time=start_time,
                 end_time=end_time,
                 day_of_week=current_day,
-                age=age
-            )
-        )
-
-    return candidate_blocks, events
-
-
-def parse_generic(source):
-    html = fetch_html(source["url"])
-    soup = BeautifulSoup(html, "html.parser")
-
-    text = soup.get_text("\n")
-    lines = [clean_text(line) for line in text.split("\n")]
-    lines = [line for line in lines if line]
-
-    candidate_blocks = []
-    events = []
-
-    for line in lines:
-        match = TIME_EVENT_RE.match(line)
-        if not match:
-            continue
-
-        start_time, end_time, title = match.groups()
-        title = title.strip(" ,:-")
-
-        if len(title) < 4:
-            continue
-
-        age_match = AGE_RE.search(title)
-        age = age_match.group(1) if age_match else None
-
-        candidate_blocks.append({
-            "source_name": source["name"],
-            "source_url": source["url"],
-            "text": line,
-            "day_of_week": None,
-            "district": source["district"],
-            "address": source["address"]
-        })
-
-        events.append(
-            build_event(
-                source=source,
-                title=title,
-                start_time=start_time,
-                end_time=end_time,
-                day_of_week=None,
-                age=age
+                age_label=age_label,
+                age_min=age_min,
+                age_max=age_max
             )
         )
 
@@ -261,15 +420,10 @@ def main():
         print("Crawling:", source["name"])
 
         try:
-            if "fann" in source["name"].lower():
-                candidate_blocks, events = parse_fann(source)
-            else:
-                candidate_blocks, events = parse_generic(source)
-
+            candidate_blocks, events = parse_source(source)
             print("found", len(events), "events")
             all_candidate_blocks.extend(candidate_blocks)
             all_events.extend(events)
-
         except Exception as e:
             print("error:", e)
 
