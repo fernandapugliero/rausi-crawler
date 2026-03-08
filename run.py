@@ -14,86 +14,35 @@ DAY_NAMES = [
     "Sonntag"
 ]
 
-# FaNN / páginas com horário + título na mesma linha
-TIME_EVENT_RE = re.compile(
-    r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})\s+(.+)"
-)
-
-# Adalbert / páginas com "10 Uhr bis 11 Uhr" ou "10 Uhr 30 bis 12 Uhr 30"
+TIME_EVENT_RE = re.compile(r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})\s+(.+)")
 TIME_UHR_RE = re.compile(
     r"(\d{1,2})(?:\s*Uhr)?(?:\s*(\d{1,2}))?\s+bis\s+(\d{1,2})(?:\s*Uhr)?(?:\s*(\d{1,2}))?",
     re.IGNORECASE
 )
 
-AGE_RANGE_RE = re.compile(
-    r"(\d+)\s*[-–]\s*(\d+)\s*(Jahr|Jahre|Monat|Monate)",
-    re.IGNORECASE
-)
-
-AGE_AB_RE = re.compile(
-    r"ab\s+(\d+)\s*(Jahr|Jahre|Monat|Monate)",
-    re.IGNORECASE
-)
-
-AGE_TEXT_RE = re.compile(
-    r"(\d+\s*bis\s*\d+\s*(?:jährige|jährigen|Jährige|Jährigen|Monate|Jahre))",
-    re.IGNORECASE
-)
+AGE_RANGE_RE = re.compile(r"(\d+)\s*[-–]\s*(\d+)\s*(Jahr|Jahre|Monat|Monate)", re.IGNORECASE)
+AGE_AB_RE = re.compile(r"ab\s+(\d+)\s*(Jahr|Jahre|Monat|Monate)", re.IGNORECASE)
+AGE_TEXT_RE = re.compile(r"(\d+\s*bis\s*\d+\s*(?:jährige|jährigen|Monate|Jahre))", re.IGNORECASE)
 
 KEEP_KEYWORDS = [
-    "baby",
-    "krabbel",
-    "kleinkind",
-    "eltern-kind",
-    "familientreff",
-    "babymassage",
-    "pekip",
-    "spielgruppe",
-    "vater-kind",
-    "mama-baby",
-    "musik",
-    "turnen",
-    "familien-turnen",
-    "klang",
-    "lauf, spiel und spaß",
+    "baby", "krabbel", "kleinkind", "eltern-kind", "familientreff",
+    "babymassage", "pekip", "spielgruppe", "vater-kind", "mama-baby",
+    "musik", "turnen", "familien-turnen", "klang"
 ]
 
 EXCLUDE_KEYWORDS = [
-    "grundschule",
-    "schulkind",
-    "jugendliche",
-    "teen",
-    "teens",
-    "ab 7 jahr",
-    "ab 7 jahren",
-    "ab 8 jahr",
-    "ab 8 jahren",
-    "ab 9 jahr",
-    "ab 9 jahren",
-    "ab 10 jahr",
-    "ab 10 jahren",
-    "7 bis 9",
-    "5 bis 7",  # fora do escopo kita-only puro
+    "grundschule", "schulkind", "jugendliche", "teen", "teens",
+    "ab 7 jahr", "ab 7 jahren", "ab 8 jahr", "ab 8 jahren",
+    "ab 9 jahr", "ab 9 jahren", "ab 10 jahr", "ab 10 jahren",
+    "7 bis 9", "7-9", "8 bis 10", "8-10"
 ]
 
 BAD_TITLE_STARTS = [
-    "uhr",
-    "und ",
-    ",",
-    ".",
-    "start am",
-    "erster termin",
-    "darüber hinaus",
-    "mit anmeldung",
-    "ohne anmeldung",
+    "uhr", "und ", ",", ".", "start am", "erster termin",
+    "darüber hinaus", "mit anmeldung", "ohne anmeldung"
 ]
 
-BAD_TITLE_EXACT = {
-    "",
-    "uhr",
-    "uhr)",
-    "uhr:",
-}
+BAD_TITLE_EXACT = {"", "uhr", "uhr)", "uhr:"}
 
 geocode_cache = {}
 
@@ -121,11 +70,7 @@ def geocode(address):
         return geocode_cache[address]
 
     url = "https://nominatim.openstreetmap.org/search"
-    params = {
-        "q": address,
-        "format": "json",
-        "limit": 1
-    }
+    params = {"q": address, "format": "json", "limit": 1}
     headers = {"User-Agent": "RausiCrawler/0.1"}
 
     try:
@@ -140,10 +85,8 @@ def geocode(address):
         lat = float(data[0]["lat"])
         lon = float(data[0]["lon"])
         geocode_cache[address] = (lat, lon)
-
         time.sleep(1)
         return lat, lon
-
     except Exception:
         geocode_cache[address] = (None, None)
         return None, None
@@ -173,7 +116,7 @@ def looks_like_bad_title(title):
         if lower.startswith(bad):
             return True
 
-    if "start am" in title.lower():
+    if "start am" in lower:
         return True
 
     return False
@@ -218,8 +161,8 @@ def extract_age_structured(text):
     match = AGE_TEXT_RE.search(text)
     if match:
         raw = match.group(1).lower()
-
         nums = re.findall(r"\d+", raw)
+
         if len(nums) >= 2:
             min_raw = int(nums[0])
             max_raw = int(nums[1])
@@ -278,6 +221,9 @@ def is_in_scope_0_6(text, age_min, age_max):
 
 
 def build_event(source, title, start_time, end_time, day_of_week=None, age_label=None, age_min=None, age_max=None):
+    if not start_time or not end_time or not title:
+        return None
+
     lat, lon = geocode(source["address"])
 
     return {
@@ -298,7 +244,7 @@ def build_event(source, title, start_time, end_time, day_of_week=None, age_label
     }
 
 
-def parse_fann_style(source):
+def parse_fann(source):
     html = fetch_html(source["url"])
     soup = BeautifulSoup(html, "html.parser")
 
@@ -314,9 +260,8 @@ def parse_fann_style(source):
             start_index = i
             break
 
-    if start_index is None:
-        agenda_lines = lines
-    else:
+    agenda_lines = lines
+    if start_index is not None:
         for i in range(start_index + 1, len(lines)):
             if (
                 lines[i].startswith("Das FaNN ist ein Ort")
@@ -327,7 +272,7 @@ def parse_fann_style(source):
                 break
 
         if end_index is None:
-            end_index = min(len(lines), start_index + 150)
+            end_index = min(len(lines), start_index + 180)
 
         agenda_lines = lines[start_index:end_index]
 
@@ -372,18 +317,18 @@ def parse_fann_style(source):
             "address": source["address"]
         })
 
-        events.append(
-            build_event(
-                source=source,
-                title=title,
-                start_time=normalize_time(start_time),
-                end_time=normalize_time(end_time),
-                day_of_week=current_day,
-                age_label=age_label,
-                age_min=age_min,
-                age_max=age_max
-            )
+        event = build_event(
+            source=source,
+            title=title,
+            start_time=normalize_time(start_time),
+            end_time=normalize_time(end_time),
+            day_of_week=current_day,
+            age_label=age_label,
+            age_min=age_min,
+            age_max=age_max
         )
+        if event:
+            events.append(event)
 
     return candidate_blocks, events
 
@@ -394,7 +339,7 @@ def format_uhr_time(hour, minute):
     return f"{h:02d}:{m:02d}"
 
 
-def parse_adalbert_style(source):
+def parse_adalbert(source):
     html = fetch_html(source["url"])
     soup = BeautifulSoup(html, "html.parser")
 
@@ -402,7 +347,6 @@ def parse_adalbert_style(source):
     lines = [clean_text(line) for line in text.split("\n")]
     lines = [line for line in lines if line]
 
-    # cortar a seção principal de cursos
     start_index = None
     end_index = None
 
@@ -411,9 +355,8 @@ def parse_adalbert_style(source):
             start_index = i
             break
 
-    if start_index is None:
-        section_lines = lines
-    else:
+    section_lines = lines
+    if start_index is not None:
         for i in range(start_index + 1, len(lines)):
             if lines[i].startswith("Wo ist das Familien-Zentrum?"):
                 end_index = i
@@ -433,17 +376,14 @@ def parse_adalbert_style(source):
     for line in section_lines:
         stripped = line.strip()
 
-        # day headings
         if stripped in DAY_NAMES:
             current_day = stripped
             current_title = None
             current_desc = None
             continue
 
-        # remover numeração tipo "1. English Playgroup,"
         stripped = re.sub(r"^\d+\.\s*", "", stripped).strip()
 
-        # linha de horário
         time_match = TIME_UHR_RE.search(stripped)
         if time_match and current_title:
             start_hour, start_min, end_hour, end_min = time_match.groups()
@@ -466,24 +406,23 @@ def parse_adalbert_style(source):
                     "address": source["address"]
                 })
 
-                events.append(
-                    build_event(
-                        source=source,
-                        title=cleanup_title(current_title),
-                        start_time=start_time,
-                        end_time=end_time,
-                        day_of_week=current_day,
-                        age_label=age_label,
-                        age_min=age_min,
-                        age_max=age_max
-                    )
+                event = build_event(
+                    source=source,
+                    title=cleanup_title(current_title),
+                    start_time=start_time,
+                    end_time=end_time,
+                    day_of_week=current_day,
+                    age_label=age_label,
+                    age_min=age_min,
+                    age_max=age_max
                 )
+                if event:
+                    events.append(event)
 
             current_title = None
             current_desc = None
             continue
 
-        # pular linhas que são só metadados
         lower = stripped.lower()
         if (
             "link zur buchung" in lower
@@ -495,21 +434,21 @@ def parse_adalbert_style(source):
         ):
             continue
 
-        # se não temos título ainda, esta linha vira título
         if current_title is None:
             current_title = stripped.rstrip(",")
-        else:
-            # a próxima linha vira descrição/idade
-            if current_desc is None:
-                current_desc = stripped.rstrip(",")
+        elif current_desc is None:
+            current_desc = stripped.rstrip(",")
 
     return candidate_blocks, events
 
 
 def parse_source(source):
-    if "adalbert" in source["url"].lower():
-        return parse_adalbert_style(source)
-    return parse_fann_style(source)
+    parser = source.get("parser", "fann")
+
+    if parser == "adalbert":
+        return parse_adalbert(source)
+
+    return parse_fann(source)
 
 
 def dedupe(events):
@@ -543,7 +482,6 @@ def main():
 
     for source in sources:
         print("Crawling:", source["name"])
-
         try:
             candidate_blocks, events = parse_source(source)
             print("found", len(events), "events")
