@@ -328,7 +328,7 @@
       "age_min": 2,
       "age_max": 6,
       "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
+      "district": "Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin",
       "latitude": 52.3814308,
       "longitude": 13.4062008,
@@ -344,7 +344,7 @@
       "age_min": 0,
       "age_max": 1,
       "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
+      "district": "Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin",
       "latitude": 52.3814308,
       "longitude": 13.4062008,
@@ -360,7 +360,7 @@
       "age_min": null,
       "age_max": null,
       "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
+      "district": "Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin",
       "latitude": 52.3814308,
       "longitude": 13.4062008,
@@ -376,7 +376,7 @@
       "age_min": 0,
       "age_max": 1,
       "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
+      "district": "Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin",
       "latitude": 52.3814308,
       "longitude": 13.4062008,
@@ -759,7 +759,7 @@
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
       "text": "16:00-18:00 Uhr Tobe- und Bewegungszeit ab 2 Jahren",
       "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
+      "district": "Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin"
     },
     {
@@ -767,7 +767,7 @@
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
       "text": "10:00-11:30 Krabbelgruppe",
       "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
+      "district": "Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin"
     },
     {
@@ -775,7 +775,7 @@
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
       "text": "15:00-16:30 Musik und Klang für 3-6 Jährige",
       "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
+      "district": "Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin"
     },
     {
@@ -783,7 +783,7 @@
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
       "text": "10:00-12:00 Uhr Mini-Rambazamba von Mama für Eltern und Babys",
       "day_of_week": null,
-      "district": "Tempelhof-Schöneberg",
+      "district": "Schöneberg",
       "address": "Alvenslebenstraße 17, 10783 Berlin"
     },
     {
