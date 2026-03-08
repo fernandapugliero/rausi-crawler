@@ -2,43 +2,36 @@
   {
     "name": "FaNN – Familienhaus Neukölln Nord",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+    "parser": "fann",
     "district": "Neukölln",
-    "address": "Hobrechtstraße 32, 12047 Berlin",
-    "parser": "fann"
+    "address": "Hobrechtstraße 32, 12047 Berlin"
   },
   {
     "name": "Familienzentrum Adalbertstraße",
-    "url": "https://www.familienzentrum-adalbertstrasse.de/angebote-barrierefei/",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-adalbertstrasse/",
+    "parser": "adalbert",
     "district": "Kreuzberg",
-    "address": "Adalbertstraße 23 b, 10997 Berlin",
-    "parser": "adalbert"
+    "address": "Adalbertstraße 23b, 10997 Berlin"
   },
   {
     "name": "Familienzentrum Wassertor",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-wassertor/",
+    "parser": "jugendwohnen",
     "district": "Kreuzberg",
-    "address": "Wassertorstraße 48, 10969 Berlin",
-    "parser": "fann"
+    "address": "Wassertorstraße 48, 10969 Berlin"
   },
   {
-    "name": "Familienzentrum Jungfernheide",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-jungfernheide/",
-    "district": "Charlottenburg",
-    "address": "Heckerdamm 242, 13627 Berlin",
-    "parser": "fann"
+    "name": "Familienzentrum Lasiuszeile",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-lasiuszeile/",
+    "parser": "jugendwohnen",
+    "district": "Neukölln",
+    "address": "Lasiuszeile 6, 12307 Berlin"
   },
   {
-    "name": "Familienzentrum Alve",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
-    "district": "Tempelhof-Schöneberg",
-    "address": "Alvenslebenstraße 17, 10783 Berlin",
-    "parser": "fann"
-  },
-  {
-    "name": "Familienzentrum Kita Lasiuszeile",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
-    "district": "Spandau",
-    "address": "Lasiuszeile 6, 13585 Berlin",
-    "parser": "fann"
+    "name": "Familienzentrum ALVE",
+    "url": "https://www.alve-familienzentrum.de/angebote/",
+    "parser": "alve",
+    "district": "Neukölln",
+    "address": "Karlsgartenstraße 6, 12049 Berlin"
   }
 ]
