@@ -132,7 +132,8 @@ def geocode(address):
         time.sleep(1)
         return lat, lon
 
-    except Exception:
+    except Exception as e:
+        print(f"Geocode failed for {address}: {e}")
         geocode_cache[address] = (None, None)
         return None, None
 
@@ -143,10 +144,8 @@ def find_explicit_day_in_line(line):
     for day in DAY_NAMES:
         if stripped == day:
             return day
-
         if stripped.startswith(day + " "):
             return day
-
         if stripped.startswith(day + ":"):
             return day
 
@@ -191,19 +190,13 @@ def looks_like_bad_title(title):
         if lower.startswith(bad):
             return True
 
-    if "start am" in title:
+    if "start am" in title.lower():
         return True
 
     return False
 
 
 def extract_age_structured(title):
-    """
-    Returns:
-    age_label, age_min, age_max
-    Units are normalized to years.
-    Months are converted to fractions of years.
-    """
     title_lower = title.lower()
 
     match = AGE_RANGE_RE.search(title)
@@ -240,7 +233,7 @@ def extract_age_structured(title):
         return age_label, age_min, age_max
 
     if "baby" in title_lower or "krabbel" in title_lower or "pekip" in title_lower or "babymassage" in title_lower:
-        return "0-1 Jahr", 0, 1
+        return "0-1 Jahre", 0, 1
 
     if "kleinkind" in title_lower:
         return "1-3 Jahre", 1, 3
@@ -277,7 +270,7 @@ def is_in_scope_0_6(title, age_min, age_max):
 
 
 def build_event(source, title, start_time, end_time, day_of_week=None, age_label=None, age_min=None, age_max=None):
-    lat, lon = geocode(source["address"])
+    lat, lon = geocode(source.get("address"))
 
     return {
         "title": title,
@@ -287,13 +280,13 @@ def build_event(source, title, start_time, end_time, day_of_week=None, age_label
         "age_min": age_min,
         "age_max": age_max,
         "day_of_week": day_of_week,
-        "district": source["district"],
-        "address": source["address"],
+        "district": source.get("district"),
+        "address": source.get("address"),
         "latitude": lat,
         "longitude": lon,
-        "source_name": source["name"],
-        "source_url": source["url"],
-        "venue_name": source["name"]
+        "source_name": source.get("name"),
+        "source_url": source.get("url"),
+        "venue_name": source.get("name")
     }
 
 
@@ -305,12 +298,11 @@ def parse_source(source):
     lines = [clean_text(line) for line in text.split("\n")]
     lines = [line for line in lines if line]
 
-    # tenta focar na seção principal da agenda para as páginas da Jugendwohnen
     start_index = None
     end_index = None
 
     for i, line in enumerate(lines):
-        if "Angebote im" in line or "Angebote im FaNN" in line:
+        if "Angebote im" in line:
             start_index = i
             break
 
@@ -363,12 +355,12 @@ def parse_source(source):
             continue
 
         candidate_blocks.append({
-            "source_name": source["name"],
-            "source_url": source["url"],
+            "source_name": source.get("name"),
+            "source_url": source.get("url"),
             "text": line,
             "day_of_week": current_day,
-            "district": source["district"],
-            "address": source["address"]
+            "district": source.get("district"),
+            "address": source.get("address")
         })
 
         events.append(
@@ -393,10 +385,10 @@ def dedupe(events):
 
     for event in events:
         key = (
-            event["title"].strip().lower(),
+            str(event["title"]).strip().lower(),
             event["start_time"],
             event["end_time"],
-            event["venue_name"].strip().lower(),
+            str(event["venue_name"]).strip().lower(),
             event.get("day_of_week")
         )
 
@@ -417,7 +409,7 @@ def main():
     all_events = []
 
     for source in sources:
-        print("Crawling:", source["name"])
+        print("Crawling:", source.get("name"))
 
         try:
             candidate_blocks, events = parse_source(source)
@@ -425,7 +417,8 @@ def main():
             all_candidate_blocks.extend(candidate_blocks)
             all_events.extend(events)
         except Exception as e:
-            print("error:", e)
+            print(f"error in source {source.get('name')}: {e}")
+            continue
 
     all_events = dedupe(all_events)
 
