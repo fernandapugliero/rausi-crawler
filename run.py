@@ -57,20 +57,26 @@ def looks_like_noise(text):
 def infer_day_from_text(text):
     lower = text.lower()
 
-    if "montag" in lower:
-        return "Montag"
-    if "dienstag" in lower:
-        return "Dienstag"
-    if "mittwoch" in lower:
-        return "Mittwoch"
-    if "donnerstag" in lower:
-        return "Donnerstag"
-    if "freitag" in lower:
-        return "Freitag"
-    if "samstag" in lower:
-        return "Samstag"
-    if "sonntag" in lower:
-        return "Sonntag"
+    day_map = {
+        "montag": "Montag",
+        "dienstag": "Dienstag",
+        "mittwoch": "Mittwoch",
+        "donnerstag": "Donnerstag",
+        "freitag": "Freitag",
+        "samstag": "Samstag",
+        "sonntag": "Sonntag",
+        "mo": "Montag",
+        "di": "Dienstag",
+        "mi": "Mittwoch",
+        "do": "Donnerstag",
+        "fr": "Freitag",
+        "sa": "Samstag",
+        "so": "Sonntag",
+    }
+
+    for key, value in day_map.items():
+        if re.search(rf"\b{re.escape(key)}\b", lower):
+            return value
 
     return None
 
@@ -87,8 +93,8 @@ def extract_candidate_blocks(html, source):
         if not text:
             continue
 
-        inferred_day = infer_day_from_text(text)
-        if inferred_day and len(text) <= 20:
+            inferred_day = infer_day_from_text(text)
+        if inferred_day:
             current_day = inferred_day
             continue
 
