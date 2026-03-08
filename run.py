@@ -1,10 +1,11 @@
 import json
 import re
+import time
 import requests
 from bs4 import BeautifulSoup
 
 
-TIME_RANGE_RE = re.compile(r"^(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})\s+(.*)$")
+TIME_RANGE_RE = re.compile(r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})")
 AGE_RE = re.compile(r"(\d+\s*[-–]\s*\d+\s*(?:Jahr(?:e)?|Monat(?:e)?))", re.IGNORECASE)
 
 DAY_NAMES = {
@@ -17,11 +18,25 @@ DAY_NAMES = {
     "Sonntag": "Sonntag",
 }
 
-BAD_TITLES = {
-    "Uhr",
-    "Uhr)",
-    "Uhr:",
-}
+BAD_TEXT_PARTS = [
+    "Jugendwohnen im Kiez",
+    "Geschäftsstelle",
+    "Leitlinien",
+    "Geschichte",
+    "Transparenz",
+    "Partner",
+    "Presse und News",
+    "Spenden",
+    "Qualitätsmanagement",
+    "Jobs",
+    "Tochtergesellschaft",
+    "Ambulante Hilfen",
+    "Stationäre Hilfen",
+    "Teilstationäre Hilfen",
+    "Therapeutische Hilfen",
+]
+
+_geocode_cache = {}
 
 
 def fetch_html(url):
@@ -39,14 +54,6 @@ def normalize_time(value):
     return value.replace(".", ":")
 
 
-def extract_lines(html):
-    soup = BeautifulSoup(html, "html.parser")
-    text = soup.get_text("\n")
-    lines = [clean_text(line) for line in text.splitlines()]
-    lines = [line for line in lines if line]
-    return lines
-
-
 def cleanup_title(title):
     title = title.strip(" -–,:;")
     title = re.sub(r"^(Uhr\b[: ]*)", "", title).strip()
@@ -56,7 +63,65 @@ def cleanup_title(title):
     return title
 
 
+def looks_like_noise(text):
+    if len(text) < 8:
+        return True
+
+    for bad in BAD_TEXT_PARTS:
+        if bad.lower() in text.lower():
+            return True
+
+    return False
+
+
+def extract_lines(html):
+    soup = BeautifulSoup(html, "html.parser")
+    text = soup.get_text("\n")
+    lines = [clean_text(line) for line in text.splitlines()]
+    return [line for line in lines if line]
+
+
+def geocode_address(address):
+    if not address:
+        return None, None
+
+    if address in _geocode_cache:
+        return _geocode_cache[address]
+
+    try:
+        url = "https://nominatim.openstreetmap.org/search"
+        params = {
+            "q": address,
+            "format": "json",
+            "limit": 1
+        }
+        headers = {
+            "User-Agent": "RausiCrawler/0.1"
+        }
+
+        response = requests.get(url, params=params, headers=headers, timeout=20)
+        response.raise_for_status()
+        data = response.json()
+
+        if not data:
+            _geocode_cache[address] = (None, None)
+            return None, None
+
+        lat = float(data[0]["lat"])
+        lon = float(data[0]["lon"])
+
+        _geocode_cache[address] = (lat, lon)
+        time.sleep(1)
+        return lat, lon
+
+    except Exception:
+        _geocode_cache[address] = (None, None)
+        return None, None
+
+
 def build_event(source, title, start_time, end_time, day_of_week=None, age=None):
+    lat, lon = geocode_address(source.get("address"))
+
     return {
         "title": title,
         "start_time": normalize_time(start_time),
@@ -65,6 +130,8 @@ def build_event(source, title, start_time, end_time, day_of_week=None, age=None)
         "day_of_week": day_of_week,
         "district": source.get("district"),
         "address": source.get("address"),
+        "latitude": lat,
+        "longitude": lon,
         "source_name": source["name"],
         "source_url": source["url"],
         "venue_name": source["name"]
@@ -77,24 +144,44 @@ def parse_fann(lines, source):
 
     current_day = None
 
-    for line in lines:
+    for raw_line in lines:
+        line = raw_line
 
-        # detectar dia da semana
+        if looks_like_noise(line):
+            continue
+
+        # Se a linha for só o nome do dia
+        if line in DAY_NAMES:
+            current_day = line
+            continue
+
+        # Se a linha começar com o nome do dia e depois vier horário/texto
         for day in DAY_NAMES:
-            if line.startswith(day):
-                current_day = DAY_NAMES[day]
-                line = line.replace(day, "").strip()
+            if line.startswith(day + " "):
+                current_day = day
+                line = line[len(day):].strip()
+                break
 
-        match = TIME_RANGE_RE.match(line)
+        # Também tenta detectar o dia se estiver contido na linha
+        if current_day is None:
+            for day in DAY_NAMES:
+                if day in line:
+                    current_day = day
+                    break
 
+        match = TIME_RANGE_RE.search(line)
         if not match:
             continue
 
-        start_time, end_time, raw_title = match.groups()
+        start_time, end_time = match.groups()
 
-        title = cleanup_title(raw_title)
+        # pega tudo depois do horário
+        title = line[match.end():].strip()
+        title = cleanup_title(title)
 
         if len(title) < 5:
+            continue
+        if title.lower().startswith("uhr"):
             continue
 
         age_match = AGE_RE.search(title)
@@ -127,15 +214,35 @@ def parse_generic(lines, source):
     events = []
     candidate_blocks = []
 
-    for line in lines:
-        match = TIME_RANGE_RE.match(line)
+    current_day = None
+
+    for raw_line in lines:
+        line = raw_line
+
+        if looks_like_noise(line):
+            continue
+
+        if line in DAY_NAMES:
+            current_day = line
+            continue
+
+        for day in DAY_NAMES:
+            if line.startswith(day + " "):
+                current_day = day
+                line = line[len(day):].strip()
+                break
+
+        match = TIME_RANGE_RE.search(line)
         if not match:
             continue
 
-        start_time, end_time, raw_title = match.groups()
-        title = cleanup_title(raw_title)
+        start_time, end_time = match.groups()
+        title = line[match.end():].strip()
+        title = cleanup_title(title)
 
-        if len(title) < 5 or title in BAD_TITLES or title.lower().startswith("uhr"):
+        if len(title) < 5:
+            continue
+        if title.lower().startswith("uhr"):
             continue
 
         age_match = AGE_RE.search(title)
@@ -145,7 +252,7 @@ def parse_generic(lines, source):
             "source_name": source["name"],
             "source_url": source["url"],
             "text": line,
-            "day_of_week": None,
+            "day_of_week": current_day,
             "district": source.get("district"),
             "address": source.get("address")
         })
@@ -156,7 +263,7 @@ def parse_generic(lines, source):
                 title=title,
                 start_time=start_time,
                 end_time=end_time,
-                day_of_week=None,
+                day_of_week=current_day,
                 age=age,
             )
         )
@@ -196,6 +303,7 @@ def main():
 
     for source in sources:
         print(f"Fetching: {source['url']}")
+
         try:
             html = fetch_html(source["url"])
             lines = extract_lines(html)
@@ -208,6 +316,7 @@ def main():
                 candidate_blocks, events = parse_generic(lines, source)
 
             print(f"Found {len(events)} events for {source['name']}")
+
             all_candidate_blocks.extend(candidate_blocks)
             all_events.extend(events)
 
