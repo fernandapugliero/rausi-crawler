@@ -3,12 +3,14 @@
     "name": "FaNN – Familienhaus Neukölln Nord",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
     "district": "Neukölln",
-    "address": "Hobrechtstraße 32, 12047 Berlin"
+    "address": "Hobrechtstraße 32, 12047 Berlin",
+    "parser": "fann"
   },
   {
     "name": "Familienzentrum Adalbertstraße",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-adalbertstrasse/",
     "district": "Kreuzberg",
-    "address": "Adalbertstraße 23 b, 10997 Berlin"
+    "address": "Adalbertstraße 23 b, 10997 Berlin",
+    "parser": "generic"
   }
 ]
