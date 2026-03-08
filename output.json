@@ -1,33 +1,279 @@
 {
+  "candidate_blocks": [
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "09.30–11.00 Baby- und Krabbelzeit (0-1 Jahr)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "11.30–13.00 Bewegung und Spiel (1-2 Jahre)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "14.00-15.00 Beratungsangebot der Stadtteilmütter für mehrsprachige Familien (0-5 Jahre), gefördert vom: Diakoniewerk Simeon",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "15.00-17.00 Offener Familientreff mit Elke und den Stadtteilmüttern",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "19.00-20.15 Yoga für alle (8-10 Termine, Anmeldung:",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "09.30-11.00 Familientreff 0-3 Jahre",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "11.30-13.00 Spanische Krabbelgruppe (0-3 Jahre)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "16.30-18.00 „Übergang in Abend“, Bewegter Familientreff – Aktivität & Entspannung (0-3 Jahre)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "09.00-11.00 wellcome – Beratung",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "14.00-15.30 Queere Eltern-Kind-Gruppe (0-3 Jahre)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "16.30-18.00 Nachmittag für alleinerziehende Mütter und Kinder",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "09.30–11.00 Familientreff (mit Kindern 0-3 Jahre)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "11.30–13.00 Baby- und Krabbelzeit (0-1 Jahr)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "13.30-14.30 Mama-Baby-Yoga (0-1 Jahr, 8-10 Termine, Anmeldung:",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "13.30-15.00 Umgangsberatung (mit vorheriger Anmeldung)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "15.30-18.00 Umgangscafé",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "16.15-17.15 Musikkurs (5 Termine für Kinder ab 2 Jahre)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "10.00-12.30 Vätertreff für Väter mit Kindern von 0-3 Jahren",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "14.00-16:00 portugiesische Spielgruppe",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "16.30-18.00 französische Spielgruppe für Kinder 0-4 Jahre",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "08.30-10.00 Uhr Morgengruß, selbstorganisiertes Frühstück – alle bringen eine Kleinigkeit mit",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "10.00-12.00 Vater-Kind-Turnen (0-3 Jahre)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "13.30-15.30 Griechische Eltern-Kind-Gruppe (am vierten Samstag des Monats), Start am 31.1.2026",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "16.00-18.00 Italienische Spielgruppe (am ersten Samstag des Monats)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "15.00-18.30 Children of Colour (am zweiten Samstag des Monats)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "14.00-15.00 AK Feminismus und Mutterschaft (am zweiten Samstag des Monats, Anmeldung",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "14.30-17.30 AK Feminismus und Mutterschaft (am dritten Samstag des Monats, Anmeldung",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "15.00-18.00 Dysmelie-Gruppe (am vierten Samstag des Monats, Kontakt über Dörtje Brenner, Tel. 01639607903,",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "11.00 – 12.30 jeden zweiten Sonntag des Monats, Stillgruppe (für Schwangere, Stillende und Partner*innen und Kind/er, Anmeldung:",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "09.30 – 12.30 jeden ersten und dritten Sonntag im Monat",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "10:00 – 13:00 Treffen der Queeren Gruppe (am 4. Sonntag des Monats)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "16.00 – 17.30 Zwillingsgruppe (am 4. Sonntag des Monats)",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "jeden Donnerstag von 13:30-15:00 Uhr: Umgangsberatung",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    },
+    {
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "text": "jeden Donnerstag von 15:00-18:30 Uhr: Umgangscafé",
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin"
+    }
+  ],
   "events": [
-    {
-      "title": "Uhr und Mi 11:00 – 15:00 Uhr",
-      "start_time": "09:00",
-      "end_time": "13:00",
-      "age": null,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920373,
-      "longitude": 13.4268288,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord"
-    },
-    {
-      "title": "Uhr, Start am 31.1.2026",
-      "start_time": "13:30",
-      "end_time": "15:30",
-      "age": null,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920373,
-      "longitude": 13.4268288,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord"
-    },
     {
       "title": "Baby- und Krabbelzeit (0-1 Jahr)",
       "start_time": "09:30",
@@ -309,7 +555,7 @@
       "venue_name": "FaNN – Familienhaus Neukölln Nord"
     },
     {
-      "title": "Uhr Morgengruß, selbstorganisiertes Frühstück – alle bringen eine Kleinigkeit mit",
+      "title": "Morgengruß, selbstorganisiertes Frühstück – alle bringen eine Kleinigkeit mit",
       "start_time": "08:30",
       "end_time": "10:00",
       "age": null,
@@ -477,49 +723,7 @@
       "venue_name": "FaNN – Familienhaus Neukölln Nord"
     },
     {
-      "title": "Uhr, erster Termin 2026: 24.02.)",
-      "start_time": "10:30",
-      "end_time": "12:30",
-      "age": null,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920373,
-      "longitude": 13.4268288,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord"
-    },
-    {
-      "title": "Uhr)",
-      "start_time": "14:00",
-      "end_time": "16:00",
-      "age": null,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920373,
-      "longitude": 13.4268288,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord"
-    },
-    {
-      "title": "Uhr)",
-      "start_time": "16:00",
-      "end_time": "18:00",
-      "age": null,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920373,
-      "longitude": 13.4268288,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord"
-    },
-    {
-      "title": "Uhr: Umgangsberatung",
+      "title": "Umgangsberatung",
       "start_time": "13:30",
       "end_time": "15:00",
       "age": null,
@@ -533,7 +737,7 @@
       "venue_name": "FaNN – Familienhaus Neukölln Nord"
     },
     {
-      "title": "Uhr: Umgangscafé",
+      "title": "Umgangscafé",
       "start_time": "15:00",
       "end_time": "18:30",
       "age": null,
@@ -545,20 +749,6 @@
       "source_name": "FaNN – Familienhaus Neukölln Nord",
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "venue_name": "FaNN – Familienhaus Neukölln Nord"
-    },
-    {
-      "title": "und Donnerstag 12:00- 14:00 Uhr wellcome Sprechzeit",
-      "start_time": "10:00",
-      "end_time": "12:00",
-      "age": null,
-      "day_of_week": null,
-      "district": "Kreuzberg",
-      "address": "Adalbertstraße 23 b, 10997 Berlin",
-      "latitude": 52.5044229,
-      "longitude": 13.4221386,
-      "source_name": "Familienzentrum Adalbertstraße",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-adalbertstrasse/",
-      "venue_name": "Familienzentrum Adalbertstraße"
     }
   ]
 }
