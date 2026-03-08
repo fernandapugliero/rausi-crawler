@@ -25,21 +25,11 @@ BAD_TEXT_PARTS = [
     "Therapeutische Hilfen",
 ]
 
-DAY_NAMES = [
-    "Montag",
-    "Dienstag",
-    "Mittwoch",
-    "Donnerstag",
-    "Freitag",
-    "Samstag",
-    "Sonntag",
-]
+DAY_NAMES = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 
 
 def fetch_html(url):
-    headers = {
-        "User-Agent": "RausiCrawler/0.1"
-    }
+    headers = {"User-Agent": "RausiCrawler/0.1"}
     response = requests.get(url, headers=headers, timeout=20)
     response.raise_for_status()
     return response.text
@@ -64,13 +54,43 @@ def looks_like_noise(text):
     return False
 
 
+def infer_day_from_text(text):
+    lower = text.lower()
+
+    if "montag" in lower:
+        return "Montag"
+    if "dienstag" in lower:
+        return "Dienstag"
+    if "mittwoch" in lower:
+        return "Mittwoch"
+    if "donnerstag" in lower:
+        return "Donnerstag"
+    if "freitag" in lower:
+        return "Freitag"
+    if "samstag" in lower:
+        return "Samstag"
+    if "sonntag" in lower:
+        return "Sonntag"
+
+    return None
+
+
 def extract_candidate_blocks(html, source):
     soup = BeautifulSoup(html, "html.parser")
     results = []
     elements = soup.find_all(["h1", "h2", "h3", "h4", "p", "li"])
 
+    current_day = None
+
     for el in elements:
         text = clean_text(el.get_text(" ", strip=True))
+        if not text:
+            continue
+
+        inferred_day = infer_day_from_text(text)
+        if inferred_day and len(text) <= 20:
+            current_day = inferred_day
+            continue
 
         if looks_like_noise(text):
             continue
@@ -85,13 +105,25 @@ def extract_candidate_blocks(html, source):
                 "tag": el.name,
                 "text": text,
                 "has_time": has_time,
-                "has_age": has_age
+                "has_age": has_age,
+                "day_of_week": current_day,
+                "district": source.get("district"),
+                "address": source.get("address")
             })
 
     return results
 
 
-def split_block_into_events(text, source):
+def cleanup_title(title):
+    title = title.strip(" -–,:;")
+    title = re.sub(r"^(Uhr\b[: ]*)", "", title).strip()
+    title = re.sub(r"^(und\s+\w+\b)", "", title).strip()
+    title = re.sub(r"^\)+", "", title).strip()
+    return title
+
+
+def split_block_into_events(block, source):
+    text = block["text"]
     matches = list(TIME_RANGE_RE.finditer(text))
     events = []
 
@@ -107,10 +139,14 @@ def split_block_into_events(text, source):
         end_time = normalize_time(match.group(2))
 
         title = TIME_RANGE_RE.sub("", chunk, count=1).strip(" -–,:;")
+        title = cleanup_title(title)
+
         age_match = AGE_RE.search(chunk)
         age = age_match.group(1) if age_match else None
 
-        if len(title) < 3:
+        if len(title) < 5:
+            continue
+        if title.lower().startswith("uhr"):
             continue
 
         events.append({
@@ -118,33 +154,15 @@ def split_block_into_events(text, source):
             "start_time": start_time,
             "end_time": end_time,
             "age": age,
+            "day_of_week": block.get("day_of_week"),
+            "district": source.get("district"),
+            "address": source.get("address"),
             "source_name": source["name"],
             "source_url": source["url"],
             "venue_name": source["name"]
         })
 
     return events
-
-
-def guess_day_from_text(text):
-    lower = text.lower()
-
-    if "donnerstag" in lower:
-        return "Donnerstag"
-    if "mittwoch" in lower:
-        return "Mittwoch"
-    if "dienstag" in lower:
-        return "Dienstag"
-    if "montag" in lower:
-        return "Montag"
-    if "freitag" in lower:
-        return "Freitag"
-    if "samstag" in lower:
-        return "Samstag"
-    if "sonntag" in lower:
-        return "Sonntag"
-
-    return None
 
 
 def dedupe_events(events):
@@ -157,6 +175,7 @@ def dedupe_events(events):
             event["start_time"],
             event["end_time"],
             event.get("age") or "",
+            event.get("day_of_week") or "",
             event["source_url"]
         )
 
@@ -187,7 +206,7 @@ def main():
             all_blocks.extend(blocks)
 
             for block in blocks:
-                events = split_block_into_events(block["text"], source)
+                events = split_block_into_events(block, source)
                 all_events.extend(events)
 
         except Exception as e:
