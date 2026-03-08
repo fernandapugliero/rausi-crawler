@@ -75,45 +75,30 @@ def parse_fann(lines, source):
     events = []
     candidate_blocks = []
 
-    in_section = False
     current_day = None
 
     for line in lines:
-        if "Angebote im FaNN" in line:
-            in_section = True
-            continue
 
-        if not in_section:
-            continue
-
-        if line.startswith("Das Familienhaus") or line.startswith("Räume") or line.startswith("Beratungsangebote"):
-            break
-
-        if line in DAY_NAMES:
-            current_day = DAY_NAMES[line]
-            continue
+        # detectar dia da semana
+        for day in DAY_NAMES:
+            if line.startswith(day):
+                current_day = DAY_NAMES[day]
+                line = line.replace(day, "").strip()
 
         match = TIME_RANGE_RE.match(line)
+
         if not match:
             continue
 
         start_time, end_time, raw_title = match.groups()
+
         title = cleanup_title(raw_title)
 
-        if len(title) < 5 or title in BAD_TITLES or title.lower().startswith("uhr"):
+        if len(title) < 5:
             continue
 
         age_match = AGE_RE.search(title)
         age = age_match.group(1) if age_match else None
-
-        event = build_event(
-            source=source,
-            title=title,
-            start_time=start_time,
-            end_time=end_time,
-            day_of_week=current_day,
-            age=age,
-        )
 
         candidate_blocks.append({
             "source_name": source["name"],
@@ -124,7 +109,16 @@ def parse_fann(lines, source):
             "address": source.get("address")
         })
 
-        events.append(event)
+        events.append(
+            build_event(
+                source=source,
+                title=title,
+                start_time=start_time,
+                end_time=end_time,
+                day_of_week=current_day,
+                age=age,
+            )
+        )
 
     return candidate_blocks, events
 
