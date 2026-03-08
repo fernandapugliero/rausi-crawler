@@ -17,6 +17,16 @@ DAY_NAMES = [
     "Sonntag"
 ]
 
+DAY_ALIASES = {
+    "mo": "Montag",
+    "di": "Dienstag",
+    "mi": "Mittwoch",
+    "do": "Donnerstag",
+    "fr": "Freitag",
+    "sa": "Samstag",
+    "so": "Sonntag",
+}
+
 geocode_cache = {}
 
 
@@ -36,165 +46,222 @@ def normalize_time(t):
 
 
 def geocode(address):
+    if not address:
+        return None, None
 
     if address in geocode_cache:
         return geocode_cache[address]
 
     url = "https://nominatim.openstreetmap.org/search"
-
     params = {
         "q": address,
         "format": "json",
         "limit": 1
     }
-
     headers = {"User-Agent": "RausiCrawler/0.1"}
 
     try:
-
         r = requests.get(url, params=params, headers=headers, timeout=20)
         data = r.json()
 
         if not data:
+            geocode_cache[address] = (None, None)
             return None, None
 
         lat = float(data[0]["lat"])
         lon = float(data[0]["lon"])
-
         geocode_cache[address] = (lat, lon)
 
         time.sleep(1)
-
         return lat, lon
 
-    except:
+    except Exception:
+        geocode_cache[address] = (None, None)
         return None, None
 
 
 def extract_lines(html):
-
     soup = BeautifulSoup(html, "html.parser")
-
     text = soup.get_text("\n")
-
     lines = text.split("\n")
 
     cleaned = []
-
-    for l in lines:
-        l = clean_text(l)
-
-        if len(l) > 3:
-            cleaned.append(l)
+    for line in lines:
+        line = clean_text(line)
+        if len(line) > 2:
+            cleaned.append(line)
 
     return cleaned
 
 
-def parse_source(source):
+def find_day_in_text(text):
+    lower = text.lower().strip()
 
-    html = fetch_html(source["url"])
+    for day in DAY_NAMES:
+        if lower == day.lower():
+            return day
 
-    lines = extract_lines(html)
+    for alias, full_day in DAY_ALIASES.items():
+        if lower == alias:
+            return full_day
 
-    current_day = None
+    return None
 
-    events = []
 
+def find_recent_day(lines, current_index, lookback=6):
+    start = max(0, current_index - lookback)
+
+    for i in range(current_index - 1, start - 1, -1):
+        candidate = lines[i]
+        day = find_day_in_text(candidate)
+        if day:
+            return day
+
+    return None
+
+
+def cleanup_title(title):
+    title = title.strip(" ,:-")
+    title = re.sub(r"^Uhr\b[: ]*", "", title).strip()
+    title = re.sub(r"^\)+", "", title).strip()
+    title = re.sub(r"\s+", " ", title).strip()
+    return title
+
+
+def looks_like_bad_title(title):
+    if len(title) < 4:
+        return True
+
+    bad_starts = [
+        "uhr",
+        "und ",
+        ",",
+        ".",
+        "start am",
+        "erster termin",
+    ]
+
+    lower = title.lower()
+
+    for bad in bad_starts:
+        if lower.startswith(bad):
+            return True
+
+    return False
+
+
+def build_event(source, title, start_time, end_time, day_of_week=None, age=None):
     lat, lon = geocode(source["address"])
 
-    for line in lines:
+    return {
+        "title": title,
+        "start_time": normalize_time(start_time),
+        "end_time": normalize_time(end_time),
+        "age": age,
+        "day_of_week": day_of_week,
+        "district": source["district"],
+        "address": source["address"],
+        "latitude": lat,
+        "longitude": lon,
+        "source_name": source["name"],
+        "source_url": source["url"],
+        "venue_name": source["name"]
+    }
 
-        if line in DAY_NAMES:
-            current_day = line
-            continue
 
+def parse_source(source):
+    html = fetch_html(source["url"])
+    lines = extract_lines(html)
+
+    events = []
+    candidate_blocks = []
+
+    for idx, line in enumerate(lines):
         match = TIME_RE.search(line)
-
         if not match:
             continue
 
         start, end = match.groups()
+        title = line[match.end():].strip()
+        title = cleanup_title(title)
 
-        title = line[match.end():].strip(" ,:-")
-
-        if len(title) < 4:
+        if looks_like_bad_title(title):
             continue
 
         age_match = AGE_RE.search(title)
-
         age = age_match.group(1) if age_match else None
 
-        event = {
-            "title": title,
-            "start_time": normalize_time(start),
-            "end_time": normalize_time(end),
-            "age": age,
-            "day_of_week": current_day,
-            "district": source["district"],
-            "address": source["address"],
-            "latitude": lat,
-            "longitude": lon,
+        day_of_week = find_recent_day(lines, idx, lookback=6)
+
+        candidate_blocks.append({
             "source_name": source["name"],
             "source_url": source["url"],
-            "venue_name": source["name"]
-        }
+            "text": line,
+            "day_of_week": day_of_week,
+            "district": source["district"],
+            "address": source["address"]
+        })
 
-        events.append(event)
+        events.append(
+            build_event(
+                source=source,
+                title=title,
+                start_time=start,
+                end_time=end,
+                day_of_week=day_of_week,
+                age=age
+            )
+        )
 
-    return events
+    return candidate_blocks, events
 
 
 def dedupe(events):
-
     seen = set()
-
     clean = []
 
     for e in events:
-
         key = (
             e["title"],
             e["start_time"],
             e["end_time"],
-            e["venue_name"]
+            e["venue_name"],
+            e.get("day_of_week")
         )
 
         if key in seen:
             continue
 
         seen.add(key)
-
         clean.append(e)
 
     return clean
 
 
 def main():
-
     with open("sources.json", encoding="utf-8") as f:
         sources = json.load(f)
 
+    all_candidate_blocks = []
     all_events = []
 
     for source in sources:
-
         print("Crawling:", source["name"])
 
         try:
-
-            events = parse_source(source)
-
+            candidate_blocks, events = parse_source(source)
             print("found", len(events), "events")
 
+            all_candidate_blocks.extend(candidate_blocks)
             all_events.extend(events)
 
         except Exception as e:
-
             print("error:", e)
 
     all_events = dedupe(all_events)
 
     output = {
+        "candidate_blocks": all_candidate_blocks,
         "events": all_events
     }
 
