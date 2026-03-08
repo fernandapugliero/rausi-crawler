@@ -4,42 +4,23 @@ import requests
 from bs4 import BeautifulSoup
 
 
-TIME_RANGE_RE = re.compile(r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})")
-AGE_RE = re.compile(r"(\d+\s*[-–]\s*\d+\s*Jahr(?:e)?|\d+\s*[-–]\s*\d+\s*Monat(?:e)?)", re.IGNORECASE)
+TIME_RANGE_RE = re.compile(r"^(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})\s+(.*)$")
+AGE_RE = re.compile(r"(\d+\s*[-–]\s*\d+\s*(?:Jahr(?:e)?|Monat(?:e)?))", re.IGNORECASE)
 
-BAD_TEXT_PARTS = [
-    "Jugendwohnen im Kiez",
-    "Geschäftsstelle",
-    "Leitlinien",
-    "Geschichte",
-    "Transparenz",
-    "Partner",
-    "Presse und News",
-    "Spenden",
-    "Qualitätsmanagement",
-    "Jobs",
-    "Tochtergesellschaft",
-    "Ambulante Hilfen",
-    "Stationäre Hilfen",
-    "Teilstationäre Hilfen",
-    "Therapeutische Hilfen",
-]
+DAY_NAMES = {
+    "Montag": "Montag",
+    "Dienstag": "Dienstag",
+    "Mittwoch": "Mittwoch",
+    "Donnerstag": "Donnerstag",
+    "Freitag": "Freitag",
+    "Samstag": "Samstag",
+    "Sonntag": "Sonntag",
+}
 
-DAY_MAP = {
-    "montag": "Montag",
-    "dienstag": "Dienstag",
-    "mittwoch": "Mittwoch",
-    "donnerstag": "Donnerstag",
-    "freitag": "Freitag",
-    "samstag": "Samstag",
-    "sonntag": "Sonntag",
-    "mo": "Montag",
-    "di": "Dienstag",
-    "mi": "Mittwoch",
-    "do": "Donnerstag",
-    "fr": "Freitag",
-    "sa": "Samstag",
-    "so": "Sonntag",
+BAD_TITLES = {
+    "Uhr",
+    "Uhr)",
+    "Uhr:",
 }
 
 
@@ -58,23 +39,12 @@ def normalize_time(value):
     return value.replace(".", ":")
 
 
-def looks_like_noise(text):
-    if len(text) < 12:
-        return True
-
-    for bad in BAD_TEXT_PARTS:
-        if bad.lower() in text.lower():
-            return True
-
-    return False
-
-
-def infer_day_from_text(text):
-    lower = text.lower()
-    for key, value in DAY_MAP.items():
-        if re.search(rf"\b{re.escape(key)}\b", lower):
-            return value
-    return None
+def extract_lines(html):
+    soup = BeautifulSoup(html, "html.parser")
+    text = soup.get_text("\n")
+    lines = [clean_text(line) for line in text.splitlines()]
+    lines = [line for line in lines if line]
+    return lines
 
 
 def cleanup_title(title):
@@ -86,88 +56,118 @@ def cleanup_title(title):
     return title
 
 
-def extract_candidate_blocks(html, source):
-    soup = BeautifulSoup(html, "html.parser")
-    results = []
-    elements = soup.find_all(["h1", "h2", "h3", "h4", "p", "li"])
+def build_event(source, title, start_time, end_time, day_of_week=None, age=None):
+    return {
+        "title": title,
+        "start_time": normalize_time(start_time),
+        "end_time": normalize_time(end_time),
+        "age": age,
+        "day_of_week": day_of_week,
+        "district": source.get("district"),
+        "address": source.get("address"),
+        "source_name": source["name"],
+        "source_url": source["url"],
+        "venue_name": source["name"]
+    }
 
+
+def parse_fann(lines, source):
+    events = []
+    candidate_blocks = []
+
+    in_section = False
     current_day = None
 
-    for el in elements:
-        text = clean_text(el.get_text(" ", strip=True))
-        if not text:
+    for line in lines:
+        if "Angebote im FaNN" in line:
+            in_section = True
             continue
 
-        inferred_day = infer_day_from_text(text)
-        if inferred_day:
-            current_day = inferred_day
-            # se for um heading curto de dia, não vira bloco
-            if len(text) <= 30:
-                continue
-
-        if looks_like_noise(text):
+        if not in_section:
             continue
 
-        has_time = bool(TIME_RANGE_RE.search(text))
-        has_age = bool(AGE_RE.search(text))
+        if line.startswith("Das Familienhaus") or line.startswith("Räume") or line.startswith("Beratungsangebote"):
+            break
 
-        if has_time or has_age or "anmeldung" in text.lower() or "baby" in text.lower() or "krabbel" in text.lower():
-            results.append({
-                "source_name": source["name"],
-                "source_url": source["url"],
-                "tag": el.name,
-                "text": text,
-                "has_time": has_time,
-                "has_age": has_age,
-                "day_of_week": current_day,
-                "district": source.get("district"),
-                "address": source.get("address")
-            })
+        if line in DAY_NAMES:
+            current_day = DAY_NAMES[line]
+            continue
 
-    return results
+        match = TIME_RANGE_RE.match(line)
+        if not match:
+            continue
 
+        start_time, end_time, raw_title = match.groups()
+        title = cleanup_title(raw_title)
 
-def split_block_into_events(block, source):
-    text = block["text"]
-    matches = list(TIME_RANGE_RE.finditer(text))
-    events = []
+        if len(title) < 5 or title in BAD_TITLES or title.lower().startswith("uhr"):
+            continue
 
-    if not matches:
-        return events
-
-    for i, match in enumerate(matches):
-        start_index = match.start()
-        end_index = matches[i + 1].start() if i + 1 < len(matches) else len(text)
-
-        chunk = text[start_index:end_index].strip(" •-–,;")
-        start_time = normalize_time(match.group(1))
-        end_time = normalize_time(match.group(2))
-
-        title = TIME_RANGE_RE.sub("", chunk, count=1).strip(" -–,:;")
-        title = cleanup_title(title)
-
-        age_match = AGE_RE.search(chunk)
+        age_match = AGE_RE.search(title)
         age = age_match.group(1) if age_match else None
 
-        if len(title) < 5:
-            continue
-        if title.lower().startswith("uhr"):
-            continue
+        event = build_event(
+            source=source,
+            title=title,
+            start_time=start_time,
+            end_time=end_time,
+            day_of_week=current_day,
+            age=age,
+        )
 
-        events.append({
-            "title": title,
-            "start_time": start_time,
-            "end_time": end_time,
-            "age": age,
-            "day_of_week": block.get("day_of_week"),
-            "district": source.get("district"),
-            "address": source.get("address"),
+        candidate_blocks.append({
             "source_name": source["name"],
             "source_url": source["url"],
-            "venue_name": source["name"]
+            "text": line,
+            "day_of_week": current_day,
+            "district": source.get("district"),
+            "address": source.get("address")
         })
 
-    return events
+        events.append(event)
+
+    return candidate_blocks, events
+
+
+def parse_generic(lines, source):
+    events = []
+    candidate_blocks = []
+
+    for line in lines:
+        match = TIME_RANGE_RE.match(line)
+        if not match:
+            continue
+
+        start_time, end_time, raw_title = match.groups()
+        title = cleanup_title(raw_title)
+
+        if len(title) < 5 or title in BAD_TITLES or title.lower().startswith("uhr"):
+            continue
+
+        age_match = AGE_RE.search(title)
+        age = age_match.group(1) if age_match else None
+
+        candidate_blocks.append({
+            "source_name": source["name"],
+            "source_url": source["url"],
+            "text": line,
+            "day_of_week": None,
+            "district": source.get("district"),
+            "address": source.get("address")
+        })
+
+        events.append(
+            build_event(
+                source=source,
+                title=title,
+                start_time=start_time,
+                end_time=end_time,
+                day_of_week=None,
+                age=age,
+            )
+        )
+
+    return candidate_blocks, events
 
 
 def dedupe_events(events):
@@ -180,7 +180,7 @@ def dedupe_events(events):
             event["start_time"],
             event["end_time"],
             event.get("age") or "",
-            event.get("district") or "",
+            event.get("day_of_week") or "",
             event["source_url"]
         )
 
@@ -197,30 +197,33 @@ def main():
     with open("sources.json", "r", encoding="utf-8") as f:
         sources = json.load(f)
 
-    all_blocks = []
+    all_candidate_blocks = []
     all_events = []
 
     for source in sources:
         print(f"Fetching: {source['url']}")
-
         try:
             html = fetch_html(source["url"])
-            blocks = extract_candidate_blocks(html, source)
-            print(f"Found {len(blocks)} candidate blocks")
+            lines = extract_lines(html)
 
-            all_blocks.extend(blocks)
+            parser_name = source.get("parser", "generic")
 
-            for block in blocks:
-                events = split_block_into_events(block, source)
-                all_events.extend(events)
+            if parser_name == "fann":
+                candidate_blocks, events = parse_fann(lines, source)
+            else:
+                candidate_blocks, events = parse_generic(lines, source)
+
+            print(f"Found {len(events)} events for {source['name']}")
+            all_candidate_blocks.extend(candidate_blocks)
+            all_events.extend(events)
 
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Error in {source['name']}: {e}")
 
     all_events = dedupe_events(all_events)
 
     output = {
-        "candidate_blocks": all_blocks,
+        "candidate_blocks": all_candidate_blocks,
         "events": all_events
     }
 
