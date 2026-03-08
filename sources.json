@@ -10,5 +10,23 @@
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-adalbertstrasse/",
     "district": "Kreuzberg",
     "address": "Adalbertstraße 23 b, 10997 Berlin"
+  },
+  {
+    "name": "Familienzentrum Mehringdamm",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-mehringdamm/",
+    "district": "Kreuzberg",
+    "address": "Mehringdamm 114, 10965 Berlin"
+  },
+  {
+    "name": "Familienzentrum Wassertor",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-wassertor/",
+    "district": "Kreuzberg",
+    "address": "Wassertorstraße 48, 10969 Berlin"
+  },
+  {
+    "name": "Familienzentrum Ritterstraße",
+    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-ritterstrasse/",
+    "district": "Kreuzberg",
+    "address": "Ritterstraße 35, 10969 Berlin"
   }
 ]
