@@ -4,9 +4,6 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
-TIME_RE = re.compile(r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})")
-AGE_RE = re.compile(r"(\d+\s*[-–]\s*\d+\s*(?:Jahr|Jahre|Monat|Monate))", re.IGNORECASE)
-
 DAY_NAMES = [
     "Montag",
     "Dienstag",
@@ -17,14 +14,30 @@ DAY_NAMES = [
     "Sonntag"
 ]
 
-DAY_ALIASES = {
-    "mo": "Montag",
-    "di": "Dienstag",
-    "mi": "Mittwoch",
-    "do": "Donnerstag",
-    "fr": "Freitag",
-    "sa": "Samstag",
-    "so": "Sonntag",
+TIME_RE = re.compile(
+    r"(?P<start>\d{1,2}[.:]\d{2})\s*[–-]\s*(?P<end>\d{1,2}[.:]\d{2})"
+)
+
+AGE_RE = re.compile(
+    r"(?P<age>\d+\s*[-–]\s*\d+\s*(?:Jahr|Jahre|Monat|Monate))",
+    re.IGNORECASE
+)
+
+BAD_TITLE_STARTS = [
+    "uhr",
+    "und ",
+    ",",
+    ".",
+    "start am",
+    "erster termin",
+    "darüber hinaus",
+]
+
+BAD_TITLE_EXACT = {
+    "",
+    "uhr",
+    "uhr)",
+    "uhr:",
 }
 
 geocode_cache = {}
@@ -32,17 +45,24 @@ geocode_cache = {}
 
 def fetch_html(url):
     headers = {"User-Agent": "RausiCrawler/0.1"}
-    r = requests.get(url, headers=headers, timeout=20)
-    r.raise_for_status()
-    return r.text
+    response = requests.get(url, headers=headers, timeout=20)
+    response.raise_for_status()
+    return response.text
 
 
 def clean_text(text):
     return " ".join(text.split()).strip()
 
 
-def normalize_time(t):
-    return t.replace(".", ":")
+def normalize_time(value):
+    return value.replace(".", ":")
+
+
+def extract_lines(html):
+    soup = BeautifulSoup(html, "html.parser")
+    text = soup.get_text("\n")
+    lines = [clean_text(line) for line in text.split("\n")]
+    return [line for line in lines if len(line) > 2]
 
 
 def geocode(address):
@@ -61,8 +81,9 @@ def geocode(address):
     headers = {"User-Agent": "RausiCrawler/0.1"}
 
     try:
-        r = requests.get(url, params=params, headers=headers, timeout=20)
-        data = r.json()
+        response = requests.get(url, params=params, headers=headers, timeout=20)
+        response.raise_for_status()
+        data = response.json()
 
         if not data:
             geocode_cache[address] = (None, None)
@@ -80,70 +101,52 @@ def geocode(address):
         return None, None
 
 
-def extract_lines(html):
-    soup = BeautifulSoup(html, "html.parser")
-    text = soup.get_text("\n")
-    lines = text.split("\n")
-
-    cleaned = []
-    for line in lines:
-        line = clean_text(line)
-        if len(line) > 2:
-            cleaned.append(line)
-
-    return cleaned
-
-
-def find_day_in_text(text):
-    lower = text.lower().strip()
+def find_explicit_day_in_line(line):
+    stripped = line.strip()
 
     for day in DAY_NAMES:
-        if lower == day.lower():
+        if stripped == day:
             return day
 
-    for alias, full_day in DAY_ALIASES.items():
-        if lower == alias:
-            return full_day
-
-    return None
-
-
-def find_recent_day(lines, current_index, lookback=6):
-    start = max(0, current_index - lookback)
-
-    for i in range(current_index - 1, start - 1, -1):
-        candidate = lines[i]
-        day = find_day_in_text(candidate)
-        if day:
+        if stripped.startswith(day + " "):
             return day
 
     return None
+
+
+def remove_day_prefix(line):
+    stripped = line.strip()
+
+    for day in DAY_NAMES:
+        if stripped == day:
+            return ""
+        if stripped.startswith(day + " "):
+            return stripped[len(day):].strip()
+
+    return stripped
 
 
 def cleanup_title(title):
-    title = title.strip(" ,:-")
-    title = re.sub(r"^Uhr\b[: ]*", "", title).strip()
+    title = title.strip(" ,:-–")
+    title = re.sub(r"^Uhr\b[: ]*", "", title, flags=re.IGNORECASE).strip()
     title = re.sub(r"^\)+", "", title).strip()
     title = re.sub(r"\s+", " ", title).strip()
     return title
 
 
 def looks_like_bad_title(title):
-    if len(title) < 4:
+    if not title:
         return True
 
-    bad_starts = [
-        "uhr",
-        "und ",
-        ",",
-        ".",
-        "start am",
-        "erster termin",
-    ]
+    lower = title.lower().strip()
 
-    lower = title.lower()
+    if lower in BAD_TITLE_EXACT:
+        return True
 
-    for bad in bad_starts:
+    if len(lower) < 4:
+        return True
+
+    for bad in BAD_TITLE_STARTS:
         if lower.startswith(bad):
             return True
 
@@ -176,28 +179,39 @@ def parse_source(source):
     events = []
     candidate_blocks = []
 
-    for idx, line in enumerate(lines):
-        match = TIME_RE.search(line)
-        if not match:
+    current_day = None
+
+    for line in lines:
+        explicit_day = find_explicit_day_in_line(line)
+        if explicit_day:
+            current_day = explicit_day
+            line = remove_day_prefix(line)
+
+            # se a linha era só o dia, segue
+            if not line:
+                continue
+
+        time_match = TIME_RE.search(line)
+        if not time_match:
             continue
 
-        start, end = match.groups()
-        title = line[match.end():].strip()
+        start_time = time_match.group("start")
+        end_time = time_match.group("end")
+
+        title = line[time_match.end():].strip()
         title = cleanup_title(title)
 
         if looks_like_bad_title(title):
             continue
 
         age_match = AGE_RE.search(title)
-        age = age_match.group(1) if age_match else None
-
-        day_of_week = find_recent_day(lines, idx, lookback=6)
+        age = age_match.group("age") if age_match else None
 
         candidate_blocks.append({
             "source_name": source["name"],
             "source_url": source["url"],
             "text": line,
-            "day_of_week": day_of_week,
+            "day_of_week": current_day,
             "district": source["district"],
             "address": source["address"]
         })
@@ -206,9 +220,9 @@ def parse_source(source):
             build_event(
                 source=source,
                 title=title,
-                start_time=start,
-                end_time=end,
-                day_of_week=day_of_week,
+                start_time=start_time,
+                end_time=end_time,
+                day_of_week=current_day,
                 age=age
             )
         )
@@ -218,28 +232,28 @@ def parse_source(source):
 
 def dedupe(events):
     seen = set()
-    clean = []
+    result = []
 
-    for e in events:
+    for event in events:
         key = (
-            e["title"],
-            e["start_time"],
-            e["end_time"],
-            e["venue_name"],
-            e.get("day_of_week")
+            event["title"].strip().lower(),
+            event["start_time"],
+            event["end_time"],
+            event["venue_name"].strip().lower(),
+            event.get("day_of_week")
         )
 
         if key in seen:
             continue
 
         seen.add(key)
-        clean.append(e)
+        result.append(event)
 
-    return clean
+    return result
 
 
 def main():
-    with open("sources.json", encoding="utf-8") as f:
+    with open("sources.json", "r", encoding="utf-8") as f:
         sources = json.load(f)
 
     all_candidate_blocks = []
@@ -251,18 +265,16 @@ def main():
         try:
             candidate_blocks, events = parse_source(source)
             print("found", len(events), "events")
-
             all_candidate_blocks.extend(candidate_blocks)
             all_events.extend(events)
-
         except Exception as e:
             print("error:", e)
 
     all_events = dedupe(all_events)
 
     output = {
-        "candidate_blocks": all_candidate_blocks,
-        "events": all_events
+        "events": all_events,
+        "candidate_blocks": all_candidate_blocks
     }
 
     with open("output.json", "w", encoding="utf-8") as f:
