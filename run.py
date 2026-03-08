@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 
 TIME_RANGE_RE = re.compile(r"(\d{1,2}[.:]\d{2})\s*[–-]\s*(\d{1,2}[.:]\d{2})")
-AGE_RE = re.compile(r"(\d+\s*[-–]\s*\d+\s*Jahr(?:e)?)", re.IGNORECASE)
+AGE_RE = re.compile(r"(\d+\s*[-–]\s*\d+\s*Jahr(?:e)?|\d+\s*[-–]\s*\d+\s*Monat(?:e)?)", re.IGNORECASE)
 
 BAD_TEXT_PARTS = [
     "Jugendwohnen im Kiez",
@@ -25,7 +25,22 @@ BAD_TEXT_PARTS = [
     "Therapeutische Hilfen",
 ]
 
-DAY_NAMES = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+DAY_MAP = {
+    "montag": "Montag",
+    "dienstag": "Dienstag",
+    "mittwoch": "Mittwoch",
+    "donnerstag": "Donnerstag",
+    "freitag": "Freitag",
+    "samstag": "Samstag",
+    "sonntag": "Sonntag",
+    "mo": "Montag",
+    "di": "Dienstag",
+    "mi": "Mittwoch",
+    "do": "Donnerstag",
+    "fr": "Freitag",
+    "sa": "Samstag",
+    "so": "Sonntag",
+}
 
 
 def fetch_html(url):
@@ -56,29 +71,19 @@ def looks_like_noise(text):
 
 def infer_day_from_text(text):
     lower = text.lower()
-
-    day_map = {
-        "montag": "Montag",
-        "dienstag": "Dienstag",
-        "mittwoch": "Mittwoch",
-        "donnerstag": "Donnerstag",
-        "freitag": "Freitag",
-        "samstag": "Samstag",
-        "sonntag": "Sonntag",
-        "mo": "Montag",
-        "di": "Dienstag",
-        "mi": "Mittwoch",
-        "do": "Donnerstag",
-        "fr": "Freitag",
-        "sa": "Samstag",
-        "so": "Sonntag",
-    }
-
-    for key, value in day_map.items():
+    for key, value in DAY_MAP.items():
         if re.search(rf"\b{re.escape(key)}\b", lower):
             return value
-
     return None
+
+
+def cleanup_title(title):
+    title = title.strip(" -–,:;")
+    title = re.sub(r"^(Uhr\b[: ]*)", "", title).strip()
+    title = re.sub(r"^(und\s+\w+\b)", "", title).strip()
+    title = re.sub(r"^\)+", "", title).strip()
+    title = re.sub(r"\s+", " ", title).strip()
+    return title
 
 
 def extract_candidate_blocks(html, source):
@@ -93,10 +98,12 @@ def extract_candidate_blocks(html, source):
         if not text:
             continue
 
-            inferred_day = infer_day_from_text(text)
+        inferred_day = infer_day_from_text(text)
         if inferred_day:
             current_day = inferred_day
-            continue
+            # se for um heading curto de dia, não vira bloco
+            if len(text) <= 30:
+                continue
 
         if looks_like_noise(text):
             continue
@@ -118,14 +125,6 @@ def extract_candidate_blocks(html, source):
             })
 
     return results
-
-
-def cleanup_title(title):
-    title = title.strip(" -–,:;")
-    title = re.sub(r"^(Uhr\b[: ]*)", "", title).strip()
-    title = re.sub(r"^(und\s+\w+\b)", "", title).strip()
-    title = re.sub(r"^\)+", "", title).strip()
-    return title
 
 
 def split_block_into_events(block, source):
@@ -181,7 +180,7 @@ def dedupe_events(events):
             event["start_time"],
             event["end_time"],
             event.get("age") or "",
-            event.get("day_of_week") or "",
+            event.get("district") or "",
             event["source_url"]
         )
 
