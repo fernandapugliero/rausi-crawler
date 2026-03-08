@@ -3,36 +3,42 @@
     "name": "FaNN – Familienhaus Neukölln Nord",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
     "district": "Neukölln",
-    "address": "Hobrechtstraße 32, 12047 Berlin"
+    "address": "Hobrechtstraße 32, 12047 Berlin",
+    "parser": "fann"
   },
   {
     "name": "Familienzentrum Adalbertstraße",
     "url": "https://www.familienzentrum-adalbertstrasse.de/angebote-barrierefei/",
     "district": "Kreuzberg",
-    "address": "Adalbertstraße 23 b, 10997 Berlin"
+    "address": "Adalbertstraße 23 b, 10997 Berlin",
+    "parser": "adalbert"
   },
   {
     "name": "Familienzentrum Wassertor",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-wassertor/",
     "district": "Kreuzberg",
-    "address": "Wassertorstraße 48, 10969 Berlin"
+    "address": "Wassertorstraße 48, 10969 Berlin",
+    "parser": "fann"
   },
   {
     "name": "Familienzentrum Jungfernheide",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-jungfernheide/",
     "district": "Charlottenburg",
-    "address": "Heckerdamm 242, 13627 Berlin"
+    "address": "Heckerdamm 242, 13627 Berlin",
+    "parser": "fann"
   },
   {
     "name": "Familienzentrum Alve",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-alve/",
-    "district": "Schöneberg",
-    "address": "Alvenslebenstraße 17, 10783 Berlin"
+    "district": "Tempelhof-Schöneberg",
+    "address": "Alvenslebenstraße 17, 10783 Berlin",
+    "parser": "fann"
   },
   {
     "name": "Familienzentrum Kita Lasiuszeile",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-kita-lasiuszeile/",
     "district": "Spandau",
-    "address": "Lasiuszeile 6, 13585 Berlin"
+    "address": "Lasiuszeile 6, 13585 Berlin",
+    "parser": "fann"
   }
 ]
