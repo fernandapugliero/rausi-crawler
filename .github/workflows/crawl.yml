@@ -2,6 +2,8 @@ name: Run crawler
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: write
@@ -26,12 +28,6 @@ jobs:
 
       - name: Run crawler
         run: python run.py
-
-      - name: Show files
-        run: |
-          ls -la
-          echo "----- output preview -----"
-          head -50 output.json || true
 
       - name: Commit and push output.json
         run: |
