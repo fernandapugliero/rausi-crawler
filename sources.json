@@ -1,5 +1,6 @@
 [
   {
+    "id": "fann",
     "name": "FaNN – Familienhaus Neukölln Nord",
     "url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
     "parser": "fann",
@@ -7,31 +8,11 @@
     "address": "Hobrechtstraße 32, 12047 Berlin"
   },
   {
+    "id": "adalbert",
     "name": "Familienzentrum Adalbertstraße",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-adalbertstrasse/",
+    "url": "https://www.familienzentrum-adalbertstrasse.de/angebote-barrierefei/",
     "parser": "adalbert",
     "district": "Kreuzberg",
-    "address": "Adalbertstraße 23b, 10997 Berlin"
-  },
-  {
-    "name": "Familienzentrum Wassertor",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-wassertor/",
-    "parser": "jugendwohnen",
-    "district": "Kreuzberg",
-    "address": "Wassertorstraße 48, 10969 Berlin"
-  },
-  {
-    "name": "Familienzentrum Lasiuszeile",
-    "url": "https://www.jugendwohnen-berlin.de/familienzentren/familienzentrum-lasiuszeile/",
-    "parser": "jugendwohnen",
-    "district": "Neukölln",
-    "address": "Lasiuszeile 6, 12307 Berlin"
-  },
-  {
-    "name": "Familienzentrum ALVE",
-    "url": "https://www.alve-familienzentrum.de/angebote/",
-    "parser": "alve",
-    "district": "Neukölln",
-    "address": "Karlsgartenstraße 6, 12049 Berlin"
+    "address": "Adalbertstraße 23 b, 10997 Berlin"
   }
 ]
