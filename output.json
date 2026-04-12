@@ -5,13 +5,13 @@
       "source_id": "fann",
       "source_name": "FaNN – Familienhaus Neukölln Nord",
       "parser": "fann",
-      "error": "HTTPSConnectionPool(host='www.jugendwohnen-berlin.de', port=443): Max retries exceeded with url: /familienzentren/fann-familienhaus-neukoelln-nord/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.jugendwohnen-berlin.de', port=443) at 0x7f1f117a6650>, 'Connection to www.jugendwohnen-berlin.de timed out. (connect timeout=20)'))"
+      "error": "HTTPSConnectionPool(host='www.jugendwohnen-berlin.de', port=443): Max retries exceeded with url: /familienzentren/fann-familienhaus-neukoelln-nord/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.jugendwohnen-berlin.de', port=443) at 0x7fce7433d490>, 'Connection to www.jugendwohnen-berlin.de timed out. (connect timeout=20)'))"
     },
     {
       "source_id": "adalbert",
       "source_name": "Familienzentrum Adalbertstraße",
       "parser": "adalbert",
-      "error": "HTTPSConnectionPool(host='www.familienzentrum-adalbertstrasse.de', port=443): Max retries exceeded with url: /angebote-barrierefei/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.familienzentrum-adalbertstrasse.de', port=443) at 0x7f1f110b5f50>, 'Connection to www.familienzentrum-adalbertstrasse.de timed out. (connect timeout=20)'))"
+      "error": "HTTPSConnectionPool(host='www.familienzentrum-adalbertstrasse.de', port=443): Max retries exceeded with url: /angebote-barrierefei/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.familienzentrum-adalbertstrasse.de', port=443) at 0x7fce73b02490>, 'Connection to www.familienzentrum-adalbertstrasse.de timed out. (connect timeout=20)'))"
     }
   ],
   "source_stats": [
