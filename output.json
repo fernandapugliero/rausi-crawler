@@ -146,24 +146,6 @@
     },
     {
       "source_id": "fann",
-      "title": "„Übergang in Abend“, Bewegter Familientreff – Aktivität & Entspannung (0-3 Jahre)",
-      "start_time": "16:30",
-      "end_time": "18:00",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920006,
-      "longitude": 13.4262918,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord",
-      "raw_text": "16.30-18.00 „Übergang in Abend“, Bewegter Familientreff – Aktivität & Entspannung (0-3 Jahre)"
-    },
-    {
-      "source_id": "fann",
       "title": "Queere Eltern-Kind-Gruppe (0-3 Jahre)",
       "start_time": "14:00",
       "end_time": "16:00",
@@ -290,24 +272,6 @@
     },
     {
       "source_id": "fann",
-      "title": "Vater-Kind-Turnen (0-3 Jahre)",
-      "start_time": "10:00",
-      "end_time": "12:00",
-      "age": "0-3 Jahre",
-      "age_min": 0,
-      "age_max": 3,
-      "day_of_week": null,
-      "district": "Neukölln",
-      "address": "Hobrechtstraße 32, 12047 Berlin",
-      "latitude": 52.4920006,
-      "longitude": 13.4262918,
-      "source_name": "FaNN – Familienhaus Neukölln Nord",
-      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
-      "venue_name": "FaNN – Familienhaus Neukölln Nord",
-      "raw_text": "10.00-12.00 Vater-Kind-Turnen (0-3 Jahre)"
-    },
-    {
-      "source_id": "fann",
       "title": "Griechische Eltern-Kind-Gruppe (am vierten Samstag des Monats)",
       "start_time": "13:30",
       "end_time": "16:30",
@@ -403,7 +367,7 @@
       "source_id": "fann",
       "source_name": "FaNN – Familienhaus Neukölln Nord",
       "parser": "fann",
-      "event_count": 19,
+      "event_count": 17,
       "status": "ok"
     },
     {
