@@ -147,7 +147,7 @@
     {
       "source_id": "fann",
       "title": "Familientreff/Übergang in den Abend, Aktivität & Entspannung (0-3 Jahre)",
-      "start_time": "16:30",
+      "start_time": "16:00",
       "end_time": "18:00",
       "age": "0-3 Jahre",
       "age_min": 0,
@@ -160,7 +160,25 @@
       "source_name": "FaNN – Familienhaus Neukölln Nord",
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "venue_name": "FaNN – Familienhaus Neukölln Nord",
-      "raw_text": "16.30-18.00 Familientreff/Übergang in den Abend, Aktivität & Entspannung (0-3 Jahre)"
+      "raw_text": "16.00-18.00 Familientreff/Übergang in den Abend, Aktivität & Entspannung (0-3 Jahre)"
+    },
+    {
+      "source_id": "fann",
+      "title": "Musikalische Weltreise für Babys und Kleinkinder ab 0 Jahren mit Begleitperson (ab 16.9.26, 5 Termine, Anmeldung",
+      "start_time": "10:00",
+      "end_time": "10:40",
+      "age": "ab 0 Jahre",
+      "age_min": 0,
+      "age_max": 6,
+      "day_of_week": null,
+      "district": "Neukölln",
+      "address": "Hobrechtstraße 32, 12047 Berlin",
+      "latitude": 52.4920373,
+      "longitude": 13.4268288,
+      "source_name": "FaNN – Familienhaus Neukölln Nord",
+      "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
+      "venue_name": "FaNN – Familienhaus Neukölln Nord",
+      "raw_text": "10.00-10:40 Musikalische Weltreise für Babys und Kleinkinder ab 0 Jahren mit Begleitperson (ab 16.9.26, 5 Termine, Anmeldung:"
     },
     {
       "source_id": "fann",
@@ -184,7 +202,7 @@
       "source_id": "fann",
       "title": "Familientreff (mit Kindern 0-3 Jahre)",
       "start_time": "16:00",
-      "end_time": "17:30",
+      "end_time": "18:00",
       "age": "0-3 Jahre",
       "age_min": 0,
       "age_max": 3,
@@ -196,7 +214,7 @@
       "source_name": "FaNN – Familienhaus Neukölln Nord",
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "venue_name": "FaNN – Familienhaus Neukölln Nord",
-      "raw_text": "16.00-17.30 Uhr Familientreff (mit Kindern 0-3 Jahre)"
+      "raw_text": "16.00-18.00 Uhr Familientreff (mit Kindern 0-3 Jahre)"
     },
     {
       "source_id": "fann",
@@ -457,7 +475,7 @@
       "source_id": "fann",
       "source_name": "FaNN – Familienhaus Neukölln Nord",
       "parser": "fann",
-      "event_count": 22,
+      "event_count": 23,
       "status": "ok"
     },
     {
