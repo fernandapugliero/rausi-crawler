@@ -38,9 +38,9 @@
     },
     {
       "source_id": "fann",
-      "title": "Beratungsangebot der Stadtteilmütter für mehrsprachige Familien (0-5 Jahre), gefördert vom: Diakoniewerk Simeon",
+      "title": "Beratungsangebot und offener Familientreff der Stadtteilmütter für mehrsprachige Familien (0-5 Jahre), gefördert vom: Diakoniewerk Simeon",
       "start_time": "14:00",
-      "end_time": "15:00",
+      "end_time": "16:30",
       "age": "0-5 Jahre",
       "age_min": 0,
       "age_max": 5,
@@ -52,13 +52,13 @@
       "source_name": "FaNN – Familienhaus Neukölln Nord",
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "venue_name": "FaNN – Familienhaus Neukölln Nord",
-      "raw_text": "14.00-15.00 Beratungsangebot der Stadtteilmütter für mehrsprachige Familien (0-5 Jahre), gefördert vom: Diakoniewerk Simeon"
+      "raw_text": "14.00-16.30 Beratungsangebot und offener Familientreff der Stadtteilmütter für mehrsprachige Familien (0-5 Jahre), gefördert vom: Diakoniewerk Simeon"
     },
     {
       "source_id": "fann",
       "title": "Offener Familientreff und dem Angebot der Stadtteilmütter.",
-      "start_time": "15:00",
-      "end_time": "17:00",
+      "start_time": "16:30",
+      "end_time": "18:00",
       "age": null,
       "age_min": 0,
       "age_max": 6,
@@ -70,7 +70,7 @@
       "source_name": "FaNN – Familienhaus Neukölln Nord",
       "source_url": "https://www.jugendwohnen-berlin.de/familienzentren/fann-familienhaus-neukoelln-nord/",
       "venue_name": "FaNN – Familienhaus Neukölln Nord",
-      "raw_text": "15.00-17.00 Offener Familientreff und dem Angebot der Stadtteilmütter."
+      "raw_text": "16.30-18.00 Offener Familientreff und dem Angebot der Stadtteilmütter."
     },
     {
       "source_id": "fann",
